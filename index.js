@@ -37,17 +37,17 @@ GameArea.prototype.loadMap = function(){
   */
 }
 
-const myImage = new Image(3840, 2160);
-myImage.src="pobrane.jpg";
+const myImage = new Image(4480, 4480);
+myImage.src="mapa.png";
 
 class Background{
 constructor(image){
   this.image=image;
-    this.x=-100;
-    this.y=-100;
+    this.x=-3500;
+    this.y=-400;
   }
   updateBackground(){
-    canva.cx.drawImage(this.image, this.x, this.y, 3840, 2160);
+    canva.cx.drawImage(this.image, this.x, this.y, 4480, 4480);
   }
 }
 
@@ -55,6 +55,9 @@ const background = new Background(myImage);
 
 let canva = new GameArea(720,480);
 canva.loadMap();
+
+const spriteImg = new Image(16,16);
+spriteImg.src="Characters_V3_Colour.png";
 
 class Player{
   constructor(x, y, width, height, color){
@@ -69,7 +72,8 @@ class Player{
     this.y=(canva.getHeight()/2)-(this.height/2);
     this.body = canva.cx;
     this.body.fillStyle = this.color;
-    this.body.fillRect((canva.getWidth()/2)-(this.width/2),(canva.getHeight()/2)-(this.height/2), this.width, this.height);
+    //this.body.fillRect((canva.getWidth()/2)-(this.width/2),(canva.getHeight()/2)-(this.height/2), this.width, this.height);
+    this.body.drawImage(spriteImg, 0, 0, 16, 16, (canva.getWidth()/2)-(this.width/2),(canva.getHeight()/2)-(this.height/2), this.width*1.4, this.height*1.4);
   }
   clear(){
     this.body.clearRect(this.x, this.y, this.width, this.height);
