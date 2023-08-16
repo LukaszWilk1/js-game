@@ -77,8 +77,6 @@ const layerBoundries = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 console.log(newBoundries);
 
-
-
 class GameArea{
   constructor(width, height){
       this.canvas = document.createElement("canvas");
@@ -100,7 +98,9 @@ GameArea.prototype.getWidth = function(){
 }
 
 const myImage = new Image();
+const foregroundImg = new Image();
 myImage.src="mapa.png";
+foregroundImg.src="foreground.png";
 
 class Background{
 constructor(image){
@@ -114,6 +114,7 @@ constructor(image){
 }
 
 const background = new Background(myImage);
+const foreground = new Background(foregroundImg);
 
 let canva = new GameArea(720,480);
 
@@ -133,7 +134,7 @@ class Player{
     this.y=(canva.getHeight()/2)-(this.height/2);
     this.body = canva.cx;
     this.body.fillStyle = this.color;
-    this.body.drawImage(spriteImg, 0, 0, 16, 16, (canva.getWidth()/2)-(this.width/2),(canva.getHeight()/2)-(this.height/2), this.width*1.4, this.height*1.4);
+    this.body.drawImage(spriteImg, 0, 0, 16, 16, (canva.getWidth()/2)-(this.width/2),(canva.getHeight()/2)-(this.height/2), this.width, this.height);
   }
   clear(){
     this.body.clearRect(this.x, this.y, this.width, this.height);
@@ -200,7 +201,7 @@ let boundaries = [];
     })
   })
 
-const movingObjects = [background, ...boundaries];
+const movingObjects = [background, foreground, ...boundaries];
 
 
 function updateGame(){
@@ -212,6 +213,7 @@ function updateGame(){
     boundary.update();
   })
   player.update();
+  foreground.updateBackground();
 
     if(keys.w.pressed && lastKey==='w'){
       for(let i=0;i<boundaries.length;i++){
