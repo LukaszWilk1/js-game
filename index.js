@@ -181,6 +181,9 @@ const keys = {
   },
   d: {
     pressed: false
+  },
+  enter: {
+    pressed: false
   }
 }
 
@@ -231,6 +234,7 @@ let finalMootamonsAreas = [];
 
 const movingObjects = [background, foreground, ...boundaries, ...finalCharactersAreas, ...finalMootamonsAreas];
 
+let talking = false;
 
 function updateGame(){
   let movable=true;
@@ -261,7 +265,7 @@ function updateGame(){
       for(let i=0;i<finalCharactersAreas.length;i++){
         let characters = finalCharactersAreas[i];
         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
-          console.log("YOU ARE TALKING WITH SOMEONE!!!");
+          talking = true;
         }
       }
       for(let i=0;i<finalMootamonsAreas.length;i++){
@@ -288,7 +292,7 @@ function updateGame(){
       for(let i=0;i<finalCharactersAreas.length;i++){
         let characters = finalCharactersAreas[i];
         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
-          console.log("YOU ARE TALKING WITH SOMEONE!!!");
+          talking = true;
         }
       }
       for(let i=0;i<finalMootamonsAreas.length;i++){
@@ -315,7 +319,7 @@ function updateGame(){
       for(let i=0;i<finalCharactersAreas.length;i++){
         let characters = finalCharactersAreas[i];
         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
-          console.log("YOU ARE TALKING WITH SOMEONE!!!");
+          talking = true;
         }
       }
       for(let i=0;i<finalMootamonsAreas.length;i++){
@@ -342,7 +346,7 @@ function updateGame(){
       for(let i=0;i<finalCharactersAreas.length;i++){
         let characters = finalCharactersAreas[i];
         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
-          console.log("YOU ARE TALKING WITH SOMEONE!!!");
+          talking = true;
         }
       }
       for(let i=0;i<finalMootamonsAreas.length;i++){
@@ -356,6 +360,9 @@ function updateGame(){
            movingObjects[i].x-=3;
          }
        }
+    }
+    if(keys.enter.pressed && talking){
+      console.log("YOU ARE TALKING WITH SOMEONE!!!");
     }
 }
 
@@ -380,6 +387,9 @@ window.addEventListener("keydown", e => {
     case "d":
       keys.d.pressed=true;
       lastKey='d';
+      break;
+    case "Enter":
+      keys.enter.pressed=true;
       break;
   }
 })
@@ -406,5 +416,8 @@ window.addEventListener("keyup", e => {
       keys.d.pressed=false;
       player.speedX=0;
       break;
+      case "Enter":
+        keys.enter.pressed=false;
+        break;
   }
 })
