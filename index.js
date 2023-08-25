@@ -1,6 +1,7 @@
   const newBoundries = [];
   const newCharactersAreas = [];
   const newMootamonsAreas = [];
+  let convoIterator = 0;
 
   for(let i = 0; i < layerBoundries.length; i+=70){
     newBoundries.push(layerBoundries.slice(i, 70+i));
@@ -169,6 +170,24 @@ class Obstacles{
   }
 }
 
+class ConversationFrame{
+  constructor(tab){
+    this.tab = tab;
+  }
+  draw(){
+    canva.cx.fillStyle = "white";
+    canva.cx.fillRect(0, 400, 720, 80);
+    canva.cx.beginPath();
+    canva.cx.fillStyle = "black";
+    canva.cx.strokeRect(0, 400, 720, 80);
+    if(keys.space.pressed){
+        console.log("YOU ARE TALKING WITH SOMEONE!!!");
+        keys.space.pressed = false;
+    }
+    else convoIterator = 0;
+  }
+}
+
 const keys = {
   w: {
     pressed: false
@@ -183,6 +202,9 @@ const keys = {
     pressed: false
   },
   enter: {
+    pressed: false
+  },
+  space: {
     pressed: false
   }
 }
@@ -235,6 +257,8 @@ let finalMootamonsAreas = [];
 const movingObjects = [background, foreground, ...boundaries, ...finalCharactersAreas, ...finalMootamonsAreas];
 
 let talking = false;
+const smallTalk = ["Hello!", "Hi!"];
+let firstConv = new ConversationFrame(smallTalk);
 
 function updateGame(){
   let movable=true;
@@ -362,7 +386,7 @@ function updateGame(){
        }
     }
     if(keys.enter.pressed && talking){
-      console.log("YOU ARE TALKING WITH SOMEONE!!!");
+      firstConv.draw();
     }
 }
 
@@ -389,7 +413,12 @@ window.addEventListener("keydown", e => {
       lastKey='d';
       break;
     case "Enter":
-      keys.enter.pressed=true;
+    if(talking){
+      keys.enter.pressed = true;
+    }
+      break;
+    case " ":
+      keys.space.pressed = true;
       break;
   }
 })
@@ -416,8 +445,10 @@ window.addEventListener("keyup", e => {
       keys.d.pressed=false;
       player.speedX=0;
       break;
-      case "Enter":
-        keys.enter.pressed=false;
-        break;
+    case "Enter":
+      break;
+    case "Space":
+    keys.space.pressed = false;
+      break;
   }
 })
