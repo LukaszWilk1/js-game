@@ -115,12 +115,13 @@ class Player{
 }
 
 class Obstacles{
-  constructor(x, y, width, height, color){
+  constructor(x, y, width, height, color, number=NaN){
     this.x=x;
     this.y=y;
     this.width=width;
     this.height = height;
     this.color=color;
+    this.number=number;
   }
   update(){
     this.body = canva.cx;
@@ -131,7 +132,6 @@ class Obstacles{
     this.body.clearRect(this.x, this.y, this.width, this.height);
   }
 }
-
 
 class ConversationFrame{
   constructor(tab){
@@ -149,7 +149,6 @@ class ConversationFrame{
     if(keys.space.pressed){
       convoIterator++;
       keys.space.pressed = false;
-      console.log(keys.enter.pressed);
       if(convoIterator==this.tab.length){
         convoIterator = 0;
         talking=false;

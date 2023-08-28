@@ -2,6 +2,7 @@
   const newCharactersAreas = [];
   const newMootamonsAreas = [];
   let convoIterator = 0;
+  let characterNumber;
 
   for(let i = 0; i < layerBoundries.length; i+=70){
     newBoundries.push(layerBoundries.slice(i, 70+i));
@@ -64,8 +65,8 @@ let finalMootamonsAreas = [];
 
   newCharactersAreas.forEach((row, i) => {
     row.forEach((number, j) => {
-      if(number === 532){
-          finalCharactersAreas.push(new Obstacles(j*64 - 3120, i*64 - 930, 64, 64, "rgba(255, 255, 255, 0)"))
+      if(number !== 0){
+          finalCharactersAreas.push(new Obstacles(j*64 - 3120, i*64 - 930, 64, 64, "rgba(255, 255, 255, 0)", number))
       }
     })
   })
@@ -113,6 +114,7 @@ function updateGame(){
         let characters = finalCharactersAreas[i];
         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
           talking = true;
+          characterNumber = characters.number;
         }
       }
       for(let i=0;i<finalMootamonsAreas.length;i++){
@@ -140,6 +142,7 @@ function updateGame(){
         let characters = finalCharactersAreas[i];
         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
           talking = true;
+          characterNumber = characters.number;
         }
       }
       for(let i=0;i<finalMootamonsAreas.length;i++){
@@ -167,6 +170,7 @@ function updateGame(){
         let characters = finalCharactersAreas[i];
         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
           talking = true;
+          characterNumber = characters.number;
         }
       }
       for(let i=0;i<finalMootamonsAreas.length;i++){
@@ -194,6 +198,7 @@ function updateGame(){
         let characters = finalCharactersAreas[i];
         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
           talking = true;
+          characterNumber = characters.number;
         }
       }
       for(let i=0;i<finalMootamonsAreas.length;i++){
@@ -209,7 +214,24 @@ function updateGame(){
        }
     }
     if(keys.enter.pressed && talking){
-      firstConv.draw();
+      switch(characterNumber){
+        case 1:
+        firstConv.draw();
+        break;
+        case 2:
+        secondConv.draw();
+        break;
+        case 3:
+        thirdConv.draw();
+        break;
+        case 4:
+        fourthConv.draw();
+        break;
+        case 5:
+        fifthConv.draw();
+        break;
+        default: console.log("CONVO NOT READY YET!");
+      }
     }
 }
 
