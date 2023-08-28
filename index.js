@@ -230,6 +230,15 @@ function updateGame(){
         case 5:
         fifthConv.draw();
         break;
+        case 6:
+        sixthConv.draw();
+        break;
+        case 7:
+        seventhConv.draw();
+        break;
+        case 8:
+        eigthtConv.draw();
+        break;
         default: console.log("CONVO NOT READY YET!");
       }
     }
