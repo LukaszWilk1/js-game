@@ -268,7 +268,7 @@ window.addEventListener("keyup", e => {
       keys.d.pressed=false;
       player.speedX=0;
       break;
-    case "Space":
+    case " ":
     keys.space.pressed = false;
       break;
   }

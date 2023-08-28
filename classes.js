@@ -145,7 +145,7 @@ class ConversationFrame{
     canva.cx.strokeRect(0, 400, 720, 80);
     canva.cx.beginPath();
     canva.cx.font = "15px Arial"
-    canva.cx.fillText(this.tab[convoIterator], 10, 430);
+    canva.cx.fillText(this.tab[convoIterator], 10, 420);
     if(keys.space.pressed){
       convoIterator++;
       keys.space.pressed = false;
