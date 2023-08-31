@@ -83,6 +83,36 @@ const movingObjects = [background, foreground, ...boundaries, ...finalCharacters
 
 let talking = false;
 let movable = false;
+let i = 1;
+let j = 0;
+
+function fadingOut(){
+  canva.cx.fillStyle=`rgba(0, 0, 0, ${i})`;
+  canva.cx.fillRect(0, 0, 720, 480);
+    setInterval(() => {
+      if(i>=0){
+        canva.cx.clearRect(0, 0, 720, 480);
+        canva.cx.fillStyle=`rgba(0, 0, 0, ${i})`;
+        canva.cx.fillRect(0, 0, 720, 480);
+        i-=0.1;
+      }
+    }, 50);
+    i=1;
+}
+
+function fadingIn(){
+  canva.cx.fillStyle=`rgba(0, 0, 0, ${j})`;
+  canva.cx.fillRect(0, 0, 720, 480);
+    setInterval(() => {
+      if(j<=1){
+        canva.cx.clearRect(0, 0, 720, 480);
+        canva.cx.fillStyle=`rgba(0, 0, 0, ${j})`;
+        canva.cx.fillRect(0, 0, 720, 480);
+        j+=0.1;
+      }
+    }, 50);
+    j=0;
+}
 
 function updateGame(){
  movable=true;
@@ -244,73 +274,71 @@ function updateGame(){
     }
 }
 
-updateGame();
-
 let lastKey;
-window.addEventListener("keydown", e => {
-  switch(e.key){
-    case "w":
-      keys.w.pressed=true;
-      lastKey='w';
-      break;
-    case "a":
-      keys.a.pressed=true;
-      lastKey='a';
-      break;
-    case "s":
-      player.moving = true;
-      keys.s.pressed=true;
-      lastKey='s';
-      break;
-    case "d":
-      keys.d.pressed=true;
-      lastKey='d';
-      break;
-    case "Enter":
-    if(talking){
-      keys.enter.pressed = true;
-    }
-      break;
-    case " ":
-      keys.space.pressed = true;
-      break;
-  }
-})
-
-window.addEventListener("keyup", e => {
-  switch(e.key){
-    case "w":
-      player.moving = false;
-      keys.w.pressed=false;
-      player.speedY=0;
-      break;
-    case "a":
-      player.moving = false;
-      keys.a.pressed=false;
-      player.speedX=0;
-      break;
-    case "s":
-      player.moving = false;
-      keys.s.pressed=false;
-      player.speedY=0;
-      break;
-    case "d":
-      player.moving = false;
-      keys.d.pressed=false;
-      player.speedX=0;
-      break;
-    case " ":
-    keys.space.pressed = false;
-      break;
-  }
-})
-
 window.addEventListener("load", e => {
   if(window.innerWidth >= 1024){
       const button = document.createElement("button");
       button.innerHTML = "START GAME";
       button.onclick = function(){
+        window.addEventListener("keydown", e => {
+          switch(e.key){
+            case "w":
+              keys.w.pressed=true;
+              lastKey='w';
+              break;
+            case "a":
+              keys.a.pressed=true;
+              lastKey='a';
+              break;
+            case "s":
+              player.moving = true;
+              keys.s.pressed=true;
+              lastKey='s';
+              break;
+            case "d":
+              keys.d.pressed=true;
+              lastKey='d';
+              break;
+            case "Enter":
+            if(talking){
+              keys.enter.pressed = true;
+            }
+              break;
+            case " ":
+              keys.space.pressed = true;
+              break;
+          }
+        })
+
+        window.addEventListener("keyup", e => {
+          switch(e.key){
+            case "w":
+              player.moving = false;
+              keys.w.pressed=false;
+              player.speedY=0;
+              break;
+            case "a":
+              player.moving = false;
+              keys.a.pressed=false;
+              player.speedX=0;
+              break;
+            case "s":
+              player.moving = false;
+              keys.s.pressed=false;
+              player.speedY=0;
+              break;
+            case "d":
+              player.moving = false;
+              keys.d.pressed=false;
+              player.speedX=0;
+              break;
+            case " ":
+            keys.space.pressed = false;
+              break;
+          }
+        })
         button.remove();
+        updateGame();
         canva.create();
       }
       document.getElementById("main").appendChild(button);
