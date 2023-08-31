@@ -3,7 +3,7 @@ class GameArea{
       this.canvas = document.createElement("canvas");
       this.canvas.width=width;
       this.canvas.height=height;
-      document.body.appendChild(this.canvas);
+      this.main = document.getElementsByTagName("main");
       this.cx = this.canvas.getContext("2d");
   }
   getHeight(){
@@ -11,6 +11,9 @@ class GameArea{
   }
   clear(){
     this.cx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+  create(){
+    document.getElementById("main").appendChild(this.canvas);
   }
 }
 

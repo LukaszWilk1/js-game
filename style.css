@@ -1,5 +1,47 @@
+body{
+  background-color: #666666;
+}
+
+header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 480px;
+}
+
+button{
+  background-color: orange;
+  width: 120px;
+  height: 70px;
+  border: 4px solid yellow;
+  border-radius: 15px;
+  color: yellow;
+}
+
+button:hover{
+  cursor: pointer;
+  color: #b3b300;
+  border: 4px solid #cc7a00;
+  background-color: #663d00;
+}
+
 canvas{
   width: 700px;
   height: 450px;
   background: grey;
+}
+
+h2{
+  text-align: center;
+}
+
+img{
+  width: 80%;
 }

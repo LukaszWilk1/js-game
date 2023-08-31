@@ -7,14 +7,14 @@ const walkRight = new Image();
 const walkLeft = new Image();
 const stayLeft = new Image();
 
-myImage.src="mapa.png";
-foregroundImg.src="foreground.png";
-spriteImg.src="Characters_V3_Colour.png";
-walkDown.src="walk_down.png"
-walkUp.src="walk_up.png";
-walkRight.src="walk_right.png";
-walkLeft.src="walk_left.png";
-stayLeft.src="stay_left.png";
+myImage.src="images/mapa.png";
+foregroundImg.src="images/foreground.png";
+spriteImg.src="images/Characters_V3_Colour.png";
+walkDown.src="images/walk_down.png"
+walkUp.src="images/walk_up.png";
+walkRight.src="images/walk_right.png";
+walkLeft.src="images/walk_left.png";
+stayLeft.src="images/stay_left.png";
 
 const background = new Background(myImage);
 const foreground = new Background(foregroundImg);

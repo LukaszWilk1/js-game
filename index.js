@@ -304,3 +304,18 @@ window.addEventListener("keyup", e => {
       break;
   }
 })
+
+window.addEventListener("load", e => {
+  if(window.innerWidth >= 1024){
+      const button = document.createElement("button");
+      button.innerHTML = "START GAME";
+      button.onclick = function(){
+        button.remove();
+        canva.create();
+      }
+      document.getElementById("main").appendChild(button);
+  }
+  else{
+    document.getElementById("main").innerHTML = "<h2>SORYY, BUT YOUR SCREEN IS TO SMALL TO PLAY MOOTAMONS :(</h2>";
+  }
+})
