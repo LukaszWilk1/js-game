@@ -157,6 +157,8 @@ class ConversationFrame{
         talking=false;
         keys.enter.pressed=false;
         movable=true;
+        window.removeEventListener("keydown", spaceEventHandler);
+        window.addEventListener("keydown", onDownFunction);
       }
     }
   }

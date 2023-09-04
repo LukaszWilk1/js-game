@@ -4,6 +4,42 @@
   let convoIterator = 0;
   let characterNumber;
 
+  const spaceEventHandler = e => {
+    if(e.key==" ") keys.space.pressed = true;
+  }
+
+  const onDownFunction = e => {
+    switch(e.key){
+      case "w":
+        keys.w.pressed=true;
+        lastKey='w';
+        break;
+      case "a":
+        keys.a.pressed=true;
+        lastKey='a';
+        break;
+      case "s":
+        player.moving = true;
+        keys.s.pressed=true;
+        lastKey='s';
+        break;
+      case "d":
+        keys.d.pressed=true;
+        lastKey='d';
+        break;
+      case "Enter":
+      if(talking){
+        keys.enter.pressed = true;
+        window.removeEventListener("keydown", onDownFunction);
+        window.addEventListener("keydown", spaceEventHandler);
+      }
+        break;
+      case " ":
+        keys.space.pressed = true;
+        break;
+    }
+  }
+
   for(let i = 0; i < layerBoundries.length; i+=70){
     newBoundries.push(layerBoundries.slice(i, 70+i));
   }
@@ -280,35 +316,7 @@ window.addEventListener("load", e => {
       const button = document.createElement("button");
       button.innerHTML = "START GAME";
       button.onclick = function(){
-        window.addEventListener("keydown", e => {
-          switch(e.key){
-            case "w":
-              keys.w.pressed=true;
-              lastKey='w';
-              break;
-            case "a":
-              keys.a.pressed=true;
-              lastKey='a';
-              break;
-            case "s":
-              player.moving = true;
-              keys.s.pressed=true;
-              lastKey='s';
-              break;
-            case "d":
-              keys.d.pressed=true;
-              lastKey='d';
-              break;
-            case "Enter":
-            if(talking){
-              keys.enter.pressed = true;
-            }
-              break;
-            case " ":
-              keys.space.pressed = true;
-              break;
-          }
-        })
+        window.addEventListener("keydown", onDownFunction);
 
         window.addEventListener("keyup", e => {
           switch(e.key){
