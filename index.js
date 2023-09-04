@@ -28,8 +28,10 @@
         lastKey='d';
         break;
       case "Enter":
-      if(talking){
+      if(talking && keys.w.pressed == false && keys.s.pressed == false && keys.a.pressed == false && keys.d.pressed == false){
         keys.enter.pressed = true;
+        movable=false;
+        player.moving=false;
         window.removeEventListener("keydown", onDownFunction);
         window.addEventListener("keydown", spaceEventHandler);
       }
@@ -119,6 +121,7 @@ const movingObjects = [background, foreground, ...boundaries, ...finalCharacters
 
 let talking = false;
 let movable = false;
+let inFight = false;
 let i = 1;
 let j = 0;
 
@@ -152,162 +155,176 @@ function fadingIn(){
 
 function updateGame(){
  movable=true;
-  window.requestAnimationFrame(updateGame);
-  canva.clear();
-  background.updateBackground();
-  boundaries.forEach(boundary => {
-    boundary.update();
-  })
-  finalCharactersAreas.forEach(boundary => {
-    boundary.update();
-  })
-  finalMootamonsAreas.forEach(boundary => {
-    boundary.update();
-  })
-  player.update();
-  foreground.updateBackground();
+ if(!inFight){
+   window.requestAnimationFrame(updateGame);
+   canva.clear();
+   background.updateBackground();
+   boundaries.forEach(boundary => {
+     boundary.update();
+   })
+   finalCharactersAreas.forEach(boundary => {
+     boundary.update();
+   })
+   finalMootamonsAreas.forEach(boundary => {
+     boundary.update();
+   })
+   player.update();
+   foreground.updateBackground();
 
-    if(keys.w.pressed && lastKey==='w'){
-      player.moving = true;
-      player.movingDirection = "up";
-      for(let i=0;i<boundaries.length;i++){
-        let obstacle = boundaries[i];
-        if(collisions({oPlayer: player, otherObj:{...obstacle, x: obstacle.x, y: obstacle.y+2.5}})){
-          movable=false;
-        }
-      }
-      for(let i=0;i<finalCharactersAreas.length;i++){
-        let characters = finalCharactersAreas[i];
-        if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
-          talking = true;
-          characterNumber = characters.number;
-        }
-      }
-      for(let i=0;i<finalMootamonsAreas.length;i++){
-        let mootamons = finalMootamonsAreas[i];
-        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
-          console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
-        }
-      }
-      if(movable){
-        for(let i=0;i<movingObjects.length;i++){
-          movingObjects[i].y+=3;
-        }
-      }
-    }
-    else if(keys.s.pressed && lastKey==='s'){
-      player.moving = true;
-      player.movingDirection = "down";
-      for(let i=0;i<boundaries.length;i++){
-        let obstacle = boundaries[i];
-        if(collisions({oPlayer: player, otherObj:{...obstacle, x: obstacle.x, y: obstacle.y-2.5}})){
-          movable=false;
-        }
-      }
-      for(let i=0;i<finalCharactersAreas.length;i++){
-        let characters = finalCharactersAreas[i];
-        if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
-          talking = true;
-          characterNumber = characters.number;
-        }
-      }
-      for(let i=0;i<finalMootamonsAreas.length;i++){
-        let mootamons = finalMootamonsAreas[i];
-        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
-          console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
-        }
-      }
-      if(movable){
-        for(let i=0;i<movingObjects.length;i++){
-          movingObjects[i].y-=3;
-        }
-      }
-    }
-    else if(keys.a.pressed && lastKey==='a'){
-      player.moving = true;
-      player.movingDirection = "left";
-      for(let i=0;i<boundaries.length;i++){
-        let obstacle = boundaries[i];
-        if(collisions({oPlayer: player, otherObj:{...obstacle, x: obstacle.x+2.5, y: obstacle.y}})){
-          movable=false;
-        }
-      }
-      for(let i=0;i<finalCharactersAreas.length;i++){
-        let characters = finalCharactersAreas[i];
-        if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
-          talking = true;
-          characterNumber = characters.number;
-        }
-      }
-      for(let i=0;i<finalMootamonsAreas.length;i++){
-        let mootamons = finalMootamonsAreas[i];
-        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
-          console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
-        }
-      }
-        if(movable){
-          for(let i=0;i<movingObjects.length;i++){
-            movingObjects[i].x+=3;
-          }
-        }
-    }
-    else if(keys.d.pressed && lastKey==='d'){
-      player.moving = true;
-      player.movingDirection = "right";
-      for(let i=0;i<boundaries.length;i++){
-        let obstacle = boundaries[i];
-        if(collisions({oPlayer: player, otherObj:{...obstacle, x: obstacle.x-2.5, y: obstacle.y}})){
-          movable=false;
-        }
-      }
-      for(let i=0;i<finalCharactersAreas.length;i++){
-        let characters = finalCharactersAreas[i];
-        if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
-          talking = true;
-          characterNumber = characters.number;
-        }
-      }
-      for(let i=0;i<finalMootamonsAreas.length;i++){
-        let mootamons = finalMootamonsAreas[i];
-        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
-          console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
-        }
-      }
-       if(movable){
-         for(let i=0;i<movingObjects.length;i++){
-           movingObjects[i].x-=3;
+     if(keys.w.pressed && lastKey==='w'){
+       player.moving = true;
+       player.movingDirection = "up";
+       for(let i=0;i<boundaries.length;i++){
+         let obstacle = boundaries[i];
+         if(collisions({oPlayer: player, otherObj:{...obstacle, x: obstacle.x, y: obstacle.y+2.5}})){
+           movable=false;
          }
        }
-    }
-    if(keys.enter.pressed && talking){
-      switch(characterNumber){
-        case 1:
-        firstConv.draw();
-        break;
-        case 2:
-        secondConv.draw();
-        break;
-        case 3:
-        thirdConv.draw();
-        break;
-        case 4:
-        fourthConv.draw();
-        break;
-        case 5:
-        fifthConv.draw();
-        break;
-        case 6:
-        sixthConv.draw();
-        break;
-        case 7:
-        seventhConv.draw();
-        break;
-        case 8:
-        eigthtConv.draw();
-        break;
-        default: console.log("CONVO NOT READY YET!");
-      }
-    }
+       for(let i=0;i<finalCharactersAreas.length;i++){
+         let characters = finalCharactersAreas[i];
+         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
+           talking = true;
+           characterNumber = characters.number;
+         }
+       }
+       for(let i=0;i<finalMootamonsAreas.length;i++){
+         let mootamons = finalMootamonsAreas[i];
+         if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
+           console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
+           movable=false;
+           player.moving=false;
+           window.removeEventListener("keydown", onDownFunction);
+         }
+       }
+       if(movable){
+         for(let i=0;i<movingObjects.length;i++){
+           movingObjects[i].y+=3;
+         }
+       }
+     }
+     else if(keys.s.pressed && lastKey==='s'){
+       player.moving = true;
+       player.movingDirection = "down";
+       for(let i=0;i<boundaries.length;i++){
+         let obstacle = boundaries[i];
+         if(collisions({oPlayer: player, otherObj:{...obstacle, x: obstacle.x, y: obstacle.y-2.5}})){
+           movable=false;
+         }
+       }
+       for(let i=0;i<finalCharactersAreas.length;i++){
+         let characters = finalCharactersAreas[i];
+         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
+           talking = true;
+           characterNumber = characters.number;
+         }
+       }
+       for(let i=0;i<finalMootamonsAreas.length;i++){
+         let mootamons = finalMootamonsAreas[i];
+         if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
+           console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
+           movable=false;
+           player.moving=false;
+           window.removeEventListener("keydown", onDownFunction);
+         }
+       }
+       if(movable){
+         for(let i=0;i<movingObjects.length;i++){
+           movingObjects[i].y-=3;
+         }
+       }
+     }
+     else if(keys.a.pressed && lastKey==='a'){
+       player.moving = true;
+       player.movingDirection = "left";
+       for(let i=0;i<boundaries.length;i++){
+         let obstacle = boundaries[i];
+         if(collisions({oPlayer: player, otherObj:{...obstacle, x: obstacle.x+2.5, y: obstacle.y}})){
+           movable=false;
+         }
+       }
+       for(let i=0;i<finalCharactersAreas.length;i++){
+         let characters = finalCharactersAreas[i];
+         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
+           talking = true;
+           characterNumber = characters.number;
+         }
+       }
+       for(let i=0;i<finalMootamonsAreas.length;i++){
+         let mootamons = finalMootamonsAreas[i];
+         if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
+           console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
+           movable=false;
+           player.moving=false;
+           window.removeEventListener("keydown", onDownFunction);
+         }
+       }
+         if(movable){
+           for(let i=0;i<movingObjects.length;i++){
+             movingObjects[i].x+=3;
+           }
+         }
+     }
+     else if(keys.d.pressed && lastKey==='d'){
+       player.moving = true;
+       player.movingDirection = "right";
+       for(let i=0;i<boundaries.length;i++){
+         let obstacle = boundaries[i];
+         if(collisions({oPlayer: player, otherObj:{...obstacle, x: obstacle.x-2.5, y: obstacle.y}})){
+           movable=false;
+         }
+       }
+       for(let i=0;i<finalCharactersAreas.length;i++){
+         let characters = finalCharactersAreas[i];
+         if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
+           talking = true;
+           characterNumber = characters.number;
+         }
+       }
+       for(let i=0;i<finalMootamonsAreas.length;i++){
+         let mootamons = finalMootamonsAreas[i];
+         if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
+           console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
+           movable=false;
+           player.moving=false;
+           window.removeEventListener("keydown", onDownFunction);
+         }
+       }
+        if(movable){
+          for(let i=0;i<movingObjects.length;i++){
+            movingObjects[i].x-=3;
+          }
+        }
+     }
+     if(keys.enter.pressed && talking){
+       switch(characterNumber){
+         case 1:
+         firstConv.draw();
+         break;
+         case 2:
+         secondConv.draw();
+         break;
+         case 3:
+         thirdConv.draw();
+         break;
+         case 4:
+         fourthConv.draw();
+         break;
+         case 5:
+         fifthConv.draw();
+         break;
+         case 6:
+         sixthConv.draw();
+         break;
+         case 7:
+         seventhConv.draw();
+         break;
+         case 8:
+         eigthtConv.draw();
+         break;
+         default: console.log("CONVO NOT READY YET!");
+       }
+     }
+ }
 }
 
 let lastKey;
