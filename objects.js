@@ -7,6 +7,8 @@ const walkRight = new Image();
 const walkLeft = new Image();
 const stayLeft = new Image();
 
+let gameState = new State(-3120, -930);
+
 myImage.src="images/mapa.png";
 foregroundImg.src="images/foreground.png";
 spriteImg.src="images/Characters_V3_Colour.png";

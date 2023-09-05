@@ -1,8 +1,9 @@
   const newBoundries = [];
   const newCharactersAreas = [];
-  const newMootamonsAreas = [];
+  let newMootamonsAreas = [];
   let convoIterator = 0;
   let characterNumber;
+  let mootamonNumber;
 
   const spaceEventHandler = e => {
     if(e.key==" ") keys.space.pressed = true;
@@ -42,15 +43,20 @@
     }
   }
 
-  for(let i = 0; i < layerBoundries.length; i+=70){
-    newBoundries.push(layerBoundries.slice(i, 70+i));
+  const slicing = () => {
+    newMootamonsAreas = [];
+    for(let i = 0; i < layerBoundries.length; i+=70){
+      newBoundries.push(layerBoundries.slice(i, 70+i));
+    }
+    for(let i = 0; i < charactersAreas.length; i+=70){
+      newCharactersAreas.push(charactersAreas.slice(i, 70+i));
+    }
+    for(let i = 0; i < mootamonsAreas.length; i+=70){
+      newMootamonsAreas.push(mootamonsAreas.slice(i, 70+i));
+    }
   }
-  for(let i = 0; i < charactersAreas.length; i+=70){
-    newCharactersAreas.push(charactersAreas.slice(i, 70+i));
-  }
-  for(let i = 0; i < mootamonsAreas.length; i+=70){
-    newMootamonsAreas.push(mootamonsAreas.slice(i, 70+i));
-  }
+
+  slicing();
 
 const keys = {
   w: {
@@ -93,10 +99,11 @@ let boundaries = [];
 let finalCharactersAreas = [];
 let finalMootamonsAreas = [];
 
+const objectsCreating = () => {
   newBoundries.forEach((row, i) => {
     row.forEach((number, j) => {
       if(number === 524){
-          boundaries.push(new Obstacles(j*64 - 3120, i*64 - 930, 64, 64, "rgba(255, 255, 255, 0)"))
+          boundaries.push(new Obstacles(j*64 + background.x, i*64 + background.y, 64, 64, "rgba(255, 255, 255, 0)"))
       }
     })
   })
@@ -104,20 +111,29 @@ let finalMootamonsAreas = [];
   newCharactersAreas.forEach((row, i) => {
     row.forEach((number, j) => {
       if(number !== 0){
-          finalCharactersAreas.push(new Obstacles(j*64 - 3120, i*64 - 930, 64, 64, "rgba(255, 255, 255, 0)", number))
+          finalCharactersAreas.push(new Obstacles(j*64 + background.x, i*64 + background.y, 64, 64, "rgba(255, 255, 255, 0)", number))
       }
     })
   })
 
   newMootamonsAreas.forEach((row, i) => {
     row.forEach((number, j) => {
-      if(number === 776){
-          finalMootamonsAreas.push(new Obstacles(j*64 - 3120, i*64 - 930, 64, 64, "rgba(255, 255, 255, 0)"))
+      if(number !== 0){
+          finalMootamonsAreas.push(new Obstacles(j*64 + background.x, i*64 + background.y, 64, 64, "rgba(255, 255, 255, 0)", number))
       }
     })
   })
+}
 
-const movingObjects = [background, foreground, ...boundaries, ...finalCharactersAreas, ...finalMootamonsAreas];
+objectsCreating();
+
+let movingObjects = []
+
+const updateMovingObjects = () => {
+    movingObjects = [background, foreground, ...boundaries, ...finalCharactersAreas, ...finalMootamonsAreas];
+}
+
+updateMovingObjects();
 
 let talking = false;
 let movable = false;
@@ -190,7 +206,9 @@ function updateGame(){
        for(let i=0;i<finalMootamonsAreas.length;i++){
          let mootamons = finalMootamonsAreas[i];
          if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
-           console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
+           mootamonNumber = mootamons.number;
+           console.log(mootamonNumber);
+           inFight = true;
            movable=false;
            player.moving=false;
            window.removeEventListener("keydown", onDownFunction);
@@ -199,6 +217,7 @@ function updateGame(){
        if(movable){
          for(let i=0;i<movingObjects.length;i++){
            movingObjects[i].y+=3;
+           gameState.updateY+=3;
          }
        }
      }
@@ -221,7 +240,9 @@ function updateGame(){
        for(let i=0;i<finalMootamonsAreas.length;i++){
          let mootamons = finalMootamonsAreas[i];
          if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
-           console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
+           mootamonNumber = mootamons.number;
+           console.log(mootamonNumber);
+           inFight = true;
            movable=false;
            player.moving=false;
            window.removeEventListener("keydown", onDownFunction);
@@ -230,6 +251,7 @@ function updateGame(){
        if(movable){
          for(let i=0;i<movingObjects.length;i++){
            movingObjects[i].y-=3;
+           gameState.updateY-=3;
          }
        }
      }
@@ -252,7 +274,9 @@ function updateGame(){
        for(let i=0;i<finalMootamonsAreas.length;i++){
          let mootamons = finalMootamonsAreas[i];
          if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
-           console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
+           mootamonNumber = mootamons.number;
+           console.log(mootamonNumber);
+           inFight = true;
            movable=false;
            player.moving=false;
            window.removeEventListener("keydown", onDownFunction);
@@ -261,6 +285,7 @@ function updateGame(){
          if(movable){
            for(let i=0;i<movingObjects.length;i++){
              movingObjects[i].x+=3;
+             gameState.updateX+=3;
            }
          }
      }
@@ -283,7 +308,9 @@ function updateGame(){
        for(let i=0;i<finalMootamonsAreas.length;i++){
          let mootamons = finalMootamonsAreas[i];
          if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
-           console.log("YOU HAVE JUST FOUND MOOTAMON!!!");
+           mootamonNumber = mootamons.number;
+           console.log(mootamonNumber);
+           inFight = true;
            movable=false;
            player.moving=false;
            window.removeEventListener("keydown", onDownFunction);
@@ -292,6 +319,7 @@ function updateGame(){
         if(movable){
           for(let i=0;i<movingObjects.length;i++){
             movingObjects[i].x-=3;
+            gameState.updateX-=3;
           }
         }
      }
@@ -324,6 +352,30 @@ function updateGame(){
          default: console.log("CONVO NOT READY YET!");
        }
      }
+ }
+ else {
+   setTimeout(() => {
+     canva.clear();
+     inFight = false;
+     for(let it = 0; it < mootamonsAreas.length; it++){
+       if(mootamonsAreas[it] === mootamonNumber){
+         mootamonsAreas[it] = 0;
+       }
+     }
+     console.log(mootamonsAreas);
+     console.log(newMootamonsAreas);
+     setTimeout(() => {
+       console.log(gameState.updateX);
+       console.log(gameState.updateY);
+       finalMootamonsAreas = [];
+       slicing();
+       objectsCreating();
+       updateMovingObjects();
+       window.addEventListener("keydown", onDownFunction);
+       console.log(finalMootamonsAreas);
+       updateGame();
+     }, 1000);
+   }, 1000);
  }
 }
 

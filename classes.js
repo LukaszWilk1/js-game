@@ -24,8 +24,8 @@ GameArea.prototype.getWidth = function(){
 class Background{
 constructor(image){
   this.image=image;
-    this.x=-3120;
-    this.y=-930;
+    this.x = gameState.xPos;
+    this.y = gameState.yPos;
   }
   updateBackground(){
     canva.cx.drawImage(this.image, this.x, this.y);
@@ -161,5 +161,19 @@ class ConversationFrame{
         window.addEventListener("keydown", onDownFunction);
       }
     }
+  }
+}
+
+class State {
+  constructor(xPos, yPos){
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.updateX = 0;
+    this.updateY = 0;
+    this.captured = 0;
+  }
+  update(newX, newY){
+    this.xPos = newX;
+    this.yPos = newY;
   }
 }
