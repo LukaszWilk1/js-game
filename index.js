@@ -390,6 +390,9 @@ function updateGame(){
      switch(mootamonNumber){
       case 1: 
       canva.cx.drawImage(firstFight, 0, 0, 720, 480);
+      canva.cx.fillStyle = "yellow";
+      canva.cx.font = "25px Arial";
+      canva.cx.fillText("Monero's healt: 100%", 450, 380);
       fightRectangle.fightDraw();
       break;
       default: console.log("Fight image does not work :(");
