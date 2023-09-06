@@ -137,7 +137,7 @@ class Obstacles{
 }
 
 class ConversationFrame{
-  constructor(tab){
+  constructor(tab = ["Here will be convo", "one", "two", "three"]){
     this.tab = tab;
   }
   draw(){
@@ -147,7 +147,7 @@ class ConversationFrame{
     canva.cx.fillStyle = "black";
     canva.cx.strokeRect(0, 400, 720, 80);
     canva.cx.beginPath();
-    canva.cx.font = "15px Arial"
+    canva.cx.font = "15px Arial";
     canva.cx.fillText(this.tab[convoIterator], 10, 420);
     if(keys.space.pressed){
       convoIterator++;
@@ -157,9 +157,21 @@ class ConversationFrame{
         talking=false;
         keys.enter.pressed=false;
         movable=true;
-        window.removeEventListener("keydown", spaceEventHandler);
         window.addEventListener("keydown", onDownFunction);
       }
+    }
+  }
+  fightDraw(){
+    canva.cx.fillStyle = "white";
+    canva.cx.fillRect(0, 400, 720, 80);
+    canva.cx.beginPath();
+    canva.cx.fillStyle = "black";
+    canva.cx.strokeRect(0, 400, 720, 80);
+    canva.cx.beginPath();
+    canva.cx.font = "15px Arial";
+    if(keys.space.pressed){
+      canva.cx.beginPath();
+      canva.cx.fillText("You've succesfully attacked!", 10, 420);
     }
   }
 }

@@ -43,6 +43,34 @@
     }
   }
 
+  const onUpFunction = e => {
+    switch(e.key){
+      case "w":
+        player.moving = false;
+        keys.w.pressed=false;
+        player.speedY=0;
+        break;
+      case "a":
+        player.moving = false;
+        keys.a.pressed=false;
+        player.speedX=0;
+        break;
+      case "s":
+        player.moving = false;
+        keys.s.pressed=false;
+        player.speedY=0;
+        break;
+      case "d":
+        player.moving = false;
+        keys.d.pressed=false;
+        player.speedX=0;
+        break;
+      case " ":
+      keys.space.pressed = false;
+        break;
+    }
+  }
+
   const slicing = () => {
     newMootamonsAreas = [];
     for(let i = 0; i < layerBoundries.length; i+=70){
@@ -170,9 +198,9 @@ function fadingIn(){
 }
 
 function updateGame(){
+ window.requestAnimationFrame(updateGame);
  movable=true;
  if(!inFight){
-   window.requestAnimationFrame(updateGame);
    canva.clear();
    background.updateBackground();
    boundaries.forEach(boundary => {
@@ -211,7 +239,6 @@ function updateGame(){
            inFight = true;
            movable=false;
            player.moving=false;
-           window.removeEventListener("keydown", onDownFunction);
          }
        }
        if(movable){
@@ -245,7 +272,6 @@ function updateGame(){
            inFight = true;
            movable=false;
            player.moving=false;
-           window.removeEventListener("keydown", onDownFunction);
          }
        }
        if(movable){
@@ -279,7 +305,6 @@ function updateGame(){
            inFight = true;
            movable=false;
            player.moving=false;
-           window.removeEventListener("keydown", onDownFunction);
          }
        }
          if(movable){
@@ -313,7 +338,6 @@ function updateGame(){
            inFight = true;
            movable=false;
            player.moving=false;
-           window.removeEventListener("keydown", onDownFunction);
          }
        }
         if(movable){
@@ -354,28 +378,33 @@ function updateGame(){
      }
  }
  else {
-   setTimeout(() => {
+  window.removeEventListener("keyup", onUpFunction);
+  let yourTurn = true;
+   //setTimeout(() => {
      canva.clear();
-     inFight = false;
      for(let it = 0; it < mootamonsAreas.length; it++){
        if(mootamonsAreas[it] === mootamonNumber){
          mootamonsAreas[it] = 0;
        }
      }
-     console.log(mootamonsAreas);
-     console.log(newMootamonsAreas);
+     switch(mootamonNumber){
+      case 1: 
+      canva.cx.drawImage(firstFight, 0, 0, 720, 480);
+      fightRectangle.fightDraw();
+      break;
+      default: console.log("Fight image does not work :(");
+     }
+     /*
      setTimeout(() => {
-       console.log(gameState.updateX);
-       console.log(gameState.updateY);
        finalMootamonsAreas = [];
        slicing();
        objectsCreating();
        updateMovingObjects();
        window.addEventListener("keydown", onDownFunction);
-       console.log(finalMootamonsAreas);
        updateGame();
      }, 1000);
-   }, 1000);
+     */
+   //}, 1000);
  }
 }
 
@@ -386,34 +415,7 @@ window.addEventListener("load", e => {
       button.innerHTML = "START GAME";
       button.onclick = function(){
         window.addEventListener("keydown", onDownFunction);
-
-        window.addEventListener("keyup", e => {
-          switch(e.key){
-            case "w":
-              player.moving = false;
-              keys.w.pressed=false;
-              player.speedY=0;
-              break;
-            case "a":
-              player.moving = false;
-              keys.a.pressed=false;
-              player.speedX=0;
-              break;
-            case "s":
-              player.moving = false;
-              keys.s.pressed=false;
-              player.speedY=0;
-              break;
-            case "d":
-              player.moving = false;
-              keys.d.pressed=false;
-              player.speedX=0;
-              break;
-            case " ":
-            keys.space.pressed = false;
-              break;
-          }
-        })
+        window.addEventListener("keyup", onUpFunction);
         button.remove();
         updateGame();
         canva.create();

@@ -6,6 +6,9 @@ const walkUp = new Image();
 const walkRight = new Image();
 const walkLeft = new Image();
 const stayLeft = new Image();
+const firstFight = new Image();
+const secondFight = new Image();
+const thirdFight = new Image();
 
 let gameState = new State(-3120, -930);
 
@@ -17,6 +20,9 @@ walkUp.src="images/walk_up.png";
 walkRight.src="images/walk_right.png";
 walkLeft.src="images/walk_left.png";
 stayLeft.src="images/stay_left.png";
+firstFight.src="images/firstFight.png";
+secondFight.src="images/secondFight.png";
+thirdFight.src="images/thirdFight.png";
 
 const background = new Background(myImage);
 const foreground = new Background(foregroundImg);
@@ -40,3 +46,5 @@ let fifthConv = new ConversationFrame(fifthTalk);
 let sixthConv = new ConversationFrame(sixthTalk);
 let seventhConv = new ConversationFrame(seventhTalk);
 let eigthtConv = new ConversationFrame(eigthtTalk);
+
+let fightRectangle = new ConversationFrame();
