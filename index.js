@@ -4,6 +4,8 @@ let newMootamonsAreas = [];
 let convoIterator = 0;
 let characterNumber;
 let mootamonNumber;
+let yoursHealth = 100;
+let enemysHealth = 100;
 
 const spaceEventHandler = e => {
   if(e.key==" ") keys.space.pressed = true;
@@ -392,33 +394,33 @@ let yourTurn = true;
     canva.cx.drawImage(firstFight, 0, 0, 720, 480);
     canva.cx.fillStyle = "yellow";
     canva.cx.font = "25px Arial";
-    canva.cx.fillText("Monero's healt: 100%", 470, 380);
+    canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 470, 380);
     canva.cx.beginPath();
     canva.cx.fillStyle = "yellow";
     canva.cx.font = "25px Arial";
-    canva.cx.fillText("Tinoroco's healt: 100%", 10, 30);
+    canva.cx.fillText(`Tinoroco's healt: ${enemysHealth}%`, 10, 30);
     fightRectangle.fightDraw();
     break;
     case 2:
     canva.cx.drawImage(secondFight, 0, 0, 720, 480);
     canva.cx.fillStyle = "yellow";
     canva.cx.font = "25px Arial";
-    canva.cx.fillText("Monero's healt: 100%", 450, 380);
+    canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 450, 380);
     canva.cx.beginPath();
     canva.cx.fillStyle = "yellow";
     canva.cx.font = "25px Arial";
-    canva.cx.fillText("Feracton's healt: 100%", 10, 30);
+    canva.cx.fillText(`Feracton's healt: ${enemysHealth}%`, 10, 30);
     fightRectangle.fightDraw();
     break;
     case 3:
     canva.cx.drawImage(thirdFight, 0, 0, 720, 480);
     canva.cx.fillStyle = "yellow";
     canva.cx.font = "25px Arial";
-    canva.cx.fillText("Monero's healt: 100%", 450, 380);
+    canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 450, 380);
     canva.cx.beginPath();
     canva.cx.fillStyle = "yellow";
     canva.cx.font = "25px Arial";
-    canva.cx.fillText("Priglot's healt: 100%", 10, 30);
+    canva.cx.fillText(`Priglot's healt: ${enemysHealth}%`, 10, 30);
     fightRectangle.fightDraw();
     break;
     default: console.log("Fight image does not work :(");

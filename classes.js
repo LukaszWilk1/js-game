@@ -170,8 +170,9 @@ class ConversationFrame{
     canva.cx.beginPath();
     canva.cx.font = "15px Arial";
     if(keys.space.pressed){
-      canva.cx.beginPath();
-      canva.cx.fillText("You've succesfully attacked!", 10, 420);
+      enemysHealth-=40;
+      if(enemysHealth<=0) enemysHealth = 0;
+      keys.space.pressed = false;
     }
   }
 }
