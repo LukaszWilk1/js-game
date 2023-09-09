@@ -169,10 +169,21 @@ class ConversationFrame{
     canva.cx.strokeRect(0, 400, 720, 80);
     canva.cx.beginPath();
     canva.cx.font = "15px Arial";
-    if(keys.space.pressed){
+    if(keys.space.pressed && yourTurn && didUHit){
+      window.removeEventListener("keydown", spaceEventHandler);
       enemysHealth-=40;
+      setTimeout(() => {
+        yourTurn = false;
+      }, 1000);
+      didUHit = false;
       if(enemysHealth<=0) enemysHealth = 0;
       keys.space.pressed = false;
+    }
+    else if(!yourTurn){
+      window.addEventListener("keydown", spaceEventHandler);
+        yoursHealth -= 5;
+        yourTurn = true;
+        didUHit = true;
     }
   }
 }
