@@ -241,6 +241,7 @@ if(!inFight){
          inFight = true;
          movable=false;
          player.moving=false;
+         enemysHealth = 100;
        }
      }
      if(movable){
@@ -274,6 +275,7 @@ if(!inFight){
          inFight = true;
          movable=false;
          player.moving=false;
+         enemysHealth = 100;
        }
      }
      if(movable){
@@ -307,6 +309,7 @@ if(!inFight){
          inFight = true;
          movable=false;
          player.moving=false;
+         enemysHealth = 100;
        }
      }
        if(movable){
@@ -340,6 +343,7 @@ if(!inFight){
          inFight = true;
          movable=false;
          player.moving=false;
+         enemysHealth = 100;
        }
      }
       if(movable){
@@ -400,6 +404,21 @@ let yourTurn = true;
     canva.cx.font = "25px Arial";
     canva.cx.fillText(`Tinoroco's healt: ${enemysHealth}%`, 10, 30);
     fightRectangle.fightDraw();
+    if(enemysHealth===0){
+      keys.w.pressed = false;
+      keys.s.pressed = false;
+      keys.a.pressed = false;
+      keys.d.pressed = false;
+      finalMootamonsAreas = [];
+      slicing();
+      objectsCreating();
+      updateMovingObjects();
+      window.addEventListener("keydown", onDownFunction);
+      window.addEventListener("keyup", onUpFunction);
+      inFight = false;
+      window.cancelAnimationFrame(id);
+      updateGame();
+    }
     break;
     case 2:
     canva.cx.drawImage(secondFight, 0, 0, 720, 480);
@@ -411,6 +430,21 @@ let yourTurn = true;
     canva.cx.font = "25px Arial";
     canva.cx.fillText(`Feracton's healt: ${enemysHealth}%`, 10, 30);
     fightRectangle.fightDraw();
+    if(enemysHealth===0){
+      keys.w.pressed = false;
+      keys.s.pressed = false;
+      keys.a.pressed = false;
+      keys.d.pressed = false;
+      finalMootamonsAreas = [];
+      slicing();
+      objectsCreating();
+      updateMovingObjects();
+      window.addEventListener("keydown", onDownFunction);
+      window.addEventListener("keyup", onUpFunction);
+      inFight = false;
+      window.cancelAnimationFrame(id);
+      updateGame();
+    }
     break;
     case 3:
     canva.cx.drawImage(thirdFight, 0, 0, 720, 480);
@@ -422,6 +456,21 @@ let yourTurn = true;
     canva.cx.font = "25px Arial";
     canva.cx.fillText(`Priglot's healt: ${enemysHealth}%`, 10, 30);
     fightRectangle.fightDraw();
+    if(enemysHealth===0){
+      keys.w.pressed = false;
+      keys.s.pressed = false;
+      keys.a.pressed = false;
+      keys.d.pressed = false;
+      finalMootamonsAreas = [];
+      slicing();
+      objectsCreating();
+      updateMovingObjects();
+      window.addEventListener("keydown", onDownFunction);
+      window.addEventListener("keyup", onUpFunction);
+      inFight = false;
+      window.cancelAnimationFrame(id);
+      updateGame();
+    }
     break;
     default: console.log("Fight image does not work :(");
    }
