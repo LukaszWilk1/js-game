@@ -153,6 +153,7 @@ class ConversationFrame{
       convoIterator++;
       keys.space.pressed = false;
       if(convoIterator==this.tab.length){
+        animationHelper = true;
         convoIterator = 0;
         talking=false;
         keys.enter.pressed=false;

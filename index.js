@@ -8,9 +8,20 @@ let yoursHealth = 100;
 let enemysHealth = 100;
 let yourTurn = true;
 let didUHit = true;
+let animationHelper = false;
+let animIterator = 0;
+let animTalk = false;
 
 const spaceEventHandler = e => {
-  if(e.key==" ") keys.space.pressed = true;
+  if(e.key===" "){
+    keys.space.pressed = true;
+  }
+}
+
+const spaceAnimHandler = e => {
+  if(e.key===" "){
+    animIterator++;
+  }
 }
 
 const onDownFunction = e => {
@@ -507,17 +518,76 @@ window.removeEventListener("keyup", onUpFunction);
 }
 }
 
+const listen = () => {
+  let id = requestAnimationFrame(listen);
+  window.addEventListener("keydown", spaceAnimHandler);
+  /*if(keys.space.pressed){
+    //window.cancelAnimationFrame(id);
+    //keys.space.pressed = false;
+    //window.removeEventListener("keydown", spaceEventHandler);
+    canva.clear();
+    canva.cx.drawImage(firstAnim, 0, 0);
+    firstAnimConv.draw();
+    if(animationHelper){
+      animationHelper = false;
+      canva.clear();
+      canva.cx.drawImage(professorsHouse, 0, 0);
+      if(keys.space.pressed){
+        canva.clear();
+        canva.cx.drawImage(prof, 0, 0);
+      }
+    }
+    //window.addEventListener("keydown", onDownFunction);
+    //window.addEventListener("keyup", onUpFunction);
+    //updateGame();
+    */
+    canva.cx.drawImage(images[animIterator], 0, 0);
+    if(animIterator == 1){
+      window.removeEventListener("keydown", spaceAnimHandler);
+      window.addEventListener("keydown", spaceEventHandler);
+      animTalk = true;
+      firstAnimConv.draw();
+      if(animationHelper){
+        animationHelper = false;
+        console.log("HELPER WORKS");
+        animIterator++;
+        window.addEventListener("keydown", spaceAnimHandler);
+        window.removeEventListener("keydown", spaceEventHandler);
+      }
+    }
+    if(animIterator == 3){
+      window.removeEventListener("keydown", spaceAnimHandler);
+      window.addEventListener("keydown", spaceEventHandler);
+      animTalk = true;
+      secondAnimConv.draw();
+      if(animationHelper){
+        animationHelper = false;
+        console.log("HELPER WORKS");
+        animIterator++;
+        window.addEventListener("keydown", spaceAnimHandler);
+        window.removeEventListener("keydown", spaceEventHandler);
+      }
+    }
+    if(animIterator == images.length - 1){
+      animIterator = 0;
+      window.cancelAnimationFrame(id);
+      window.addEventListener("keydown", onDownFunction);
+      window.addEventListener("keyup", onUpFunction);
+      updateGame();
+    }
+  }
+
+
 let lastKey;
 window.addEventListener("load", e => {
 if(window.innerWidth >= 1024){
     const button = document.createElement("button");
     button.innerHTML = "START GAME";
     button.onclick = function(){
-      window.addEventListener("keydown", onDownFunction);
-      window.addEventListener("keyup", onUpFunction);
       button.remove();
-      updateGame();
       canva.create();
+      canva.cx.drawImage(beginingText, 0, 0);
+      listen();
     }
     document.getElementById("main").appendChild(button);
 }
