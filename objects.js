@@ -13,12 +13,11 @@ const firstAnim = new Image();
 const prof = new Image();
 const beginingText = new Image();
 const fightText = new Image();
-const firstMoota = new Image();
-const secondMoota = new Image();
 const lastMoota = new Image();
 const professorsHouse = new Image();
 const empty = new Image();
 const start = new Image();
+const won = new Image();
 
 let gameState = new State(-3120, -930);
 
@@ -37,12 +36,11 @@ firstAnim.src = "images/firstAnimBcg.png";
 prof.src = "images/prof.png";
 beginingText.src = "images/beginingText.png";
 fightText.src = "images/fight.png";
-firstMoota.src = "images/firstMoota.png";
-secondMoota.src = "images/secondMoota.png";
 lastMoota.src = "images/lastMoota.png";
 professorsHouse.src = "images/profesorsHouse.png";
 empty.src = "images/empty.png";
 start.src="images/start.png";
+won.src = "images/won.png";
 
 const background = new Background(myImage);
 const foreground = new Background(foregroundImg);

@@ -12,7 +12,9 @@ let animationHelper = false;
 let animIterator = 0;
 let animTalk = false;
 let fightStarted = false;
+let fightEnded = false;
 let caoughtMootamons = 0;
+let fightHelper = true;
 
 const spaceEventHandler = e => {
   if(e.key===" "){
@@ -216,7 +218,6 @@ canva.cx.fillRect(0, 0, 720, 480);
 
 function updateGame(){
 let id = window.requestAnimationFrame(updateGame);
-console.log(yoursHealth);
 movable=true;
 if(!inFight){
  canva.clear();
@@ -259,6 +260,9 @@ if(!inFight){
          mootamonNumber = mootamons.number;
          console.log(mootamonNumber);
          inFight = true;
+         fightStarted = false;
+         fightEnded = false;
+         fightHelper = true;
          movable=false;
          player.moving=false;
          enemysHealth = 100;
@@ -302,6 +306,9 @@ if(!inFight){
          mootamonNumber = mootamons.number;
          console.log(mootamonNumber);
          inFight = true;
+         fightStarted = false;
+         fightEnded = false;
+         fightHelper = true;
          movable=false;
          player.moving=false;
          enemysHealth = 100;
@@ -345,6 +352,9 @@ if(!inFight){
          mootamonNumber = mootamons.number;
          console.log(mootamonNumber);
          inFight = true;
+         fightStarted = false;
+         fightEnded = false;
+         fightHelper = true;
          movable=false;
          player.moving=false;
          enemysHealth = 100;
@@ -388,6 +398,9 @@ if(!inFight){
          mootamonNumber = mootamons.number;
          console.log(mootamonNumber);
          inFight = true;
+         fightStarted = false;
+         fightEnded = false;
+         fightHelper = true;
          movable=false;
          player.moving=false;
          enemysHealth = 100;
@@ -448,54 +461,65 @@ window.removeEventListener("keyup", onUpFunction);
      }
    }
    switch(mootamonNumber){
-    case 1:
-    if(!fightStarted){
-      canva.cx.drawImage(fightText, 0, 0, 720, 480);
-      setTimeout(() => {
-        fightStarted = true;
-      }, 1000);
-    } else{
-      canva.cx.drawImage(firstFight, 0, 0, 720, 480);
-      canva.cx.fillStyle = "yellow";
-      canva.cx.font = "25px Arial";
-      canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 470, 380);
-      canva.cx.beginPath();
-      canva.cx.fillStyle = "yellow";
-      canva.cx.font = "25px Arial";
-      canva.cx.fillText(`Tinoroco's healt: ${enemysHealth}%`, 10, 30);
-      canva.cx.beginPath();
-      canva.cx.fillStyle = "black";
-      canva.cx.font = "15px Arial";
-      fightRectangle.fightDraw();
-      canva.cx.fillText("Use space to attack enemy!", 10, 420);
-    }
-    if(enemysHealth===0){
-      keys.w.pressed = false;
-      keys.s.pressed = false;
-      keys.a.pressed = false;
-      keys.d.pressed = false;
-      caoughtMootamons++;
-      yourTurn = true;
-      fightStarted = false;
-      finalMootamonsAreas = [];
-      slicing();
-      objectsCreating();
-      updateMovingObjects();
-      window.addEventListener("keydown", onDownFunction);
-      window.addEventListener("keyup", onUpFunction);
-      inFight = false;
-      window.cancelAnimationFrame(id);
-      updateGame();
-    }
-    break;
+     case 1:
+     console.log(fightStarted + ", " + fightEnded + ", " + fightHelper);
+     if(!fightStarted && !fightEnded && fightHelper){
+       console.log("I WORK!");
+       canva.cx.drawImage(fightText, 0, 0, 720, 480);
+       setTimeout(() => {
+         fightStarted = true;
+       }, 1000);
+     }
+     else if(fightStarted){
+       canva.cx.drawImage(firstFight, 0, 0, 720, 480);
+       canva.cx.fillStyle = "yellow";
+       canva.cx.font = "25px Arial";
+       canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 450, 380);
+       canva.cx.beginPath();
+       canva.cx.fillStyle = "yellow";
+       canva.cx.font = "25px Arial";
+       canva.cx.fillText(`Tinoroco's healt: ${enemysHealth}%`, 10, 30);
+       fightRectangle.fightDraw();
+       canva.cx.fillText("Use space to attack enemy!", 10, 420);
+     }
+     if(enemysHealth===0){
+       fightStarted = false;
+       fightHelper = false;
+       canva.cx.drawImage(won, 0, 0);
+       setTimeout(() => {
+         fightEnded = true;
+       }, 1000)
+       if(fightEnded){
+         fightEnded = false;
+         keys.w.pressed = false;
+         keys.s.pressed = false;
+         keys.a.pressed = false;
+         keys.d.pressed = false;
+         caoughtMootamons++;
+         yourTurn = true;
+         fightStarted = false;
+         finalMootamonsAreas = [];
+         slicing();
+         objectsCreating();
+         updateMovingObjects();
+         window.addEventListener("keydown", onDownFunction);
+         window.addEventListener("keyup", onUpFunction);
+         inFight = false;
+         window.cancelAnimationFrame(id);
+         updateGame();
+       }
+     }
+     break;
     case 2:
-    if(!fightStarted){
+    console.log(fightStarted + ", " + fightEnded + ", " + fightHelper);
+    if(!fightStarted && !fightEnded && fightHelper){
+      console.log("I WORK!");
       canva.cx.drawImage(fightText, 0, 0, 720, 480);
       setTimeout(() => {
         fightStarted = true;
       }, 1000);
     }
-    else {
+    else if(fightStarted){
       canva.cx.drawImage(secondFight, 0, 0, 720, 480);
       canva.cx.fillStyle = "yellow";
       canva.cx.font = "25px Arial";
@@ -508,32 +532,43 @@ window.removeEventListener("keyup", onUpFunction);
       canva.cx.fillText("Use space to attack enemy!", 10, 420);
     }
     if(enemysHealth===0){
-      keys.w.pressed = false;
-      keys.s.pressed = false;
-      keys.a.pressed = false;
-      keys.d.pressed = false;
-      caoughtMootamons++;
       fightStarted = false;
-      yourTurn = true;
-      finalMootamonsAreas = [];
-      slicing();
-      objectsCreating();
-      updateMovingObjects();
-      window.addEventListener("keydown", onDownFunction);
-      window.addEventListener("keyup", onUpFunction);
-      inFight = false;
-      window.cancelAnimationFrame(id);
-      updateGame();
+      fightHelper = false;
+      canva.cx.drawImage(won, 0, 0);
+      setTimeout(() => {
+        fightEnded = true;
+      }, 1000)
+      if(fightEnded){
+        fightEnded = false;
+        keys.w.pressed = false;
+        keys.s.pressed = false;
+        keys.a.pressed = false;
+        keys.d.pressed = false;
+        caoughtMootamons++;
+        yourTurn = true;
+        fightStarted = false;
+        finalMootamonsAreas = [];
+        slicing();
+        objectsCreating();
+        updateMovingObjects();
+        window.addEventListener("keydown", onDownFunction);
+        window.addEventListener("keyup", onUpFunction);
+        inFight = false;
+        window.cancelAnimationFrame(id);
+        updateGame();
+      }
     }
     break;
     case 3:
-    if(!fightStarted){
+    console.log(fightStarted + ", " + fightEnded + ", " + fightHelper);
+    if(!fightStarted && !fightEnded && fightHelper){
       canva.cx.drawImage(fightText, 0, 0, 720, 480);
+      console.log("I WORK!");
       setTimeout(() => {
         fightStarted = true;
       }, 1000);
     }
-    else{
+    else if(fightStarted){
       canva.cx.drawImage(thirdFight, 0, 0, 720, 480);
       canva.cx.fillStyle = "yellow";
       canva.cx.font = "25px Arial";
@@ -546,22 +581,31 @@ window.removeEventListener("keyup", onUpFunction);
       canva.cx.fillText("Use space to attack enemy!", 10, 420);
     }
     if(enemysHealth===0){
-      keys.w.pressed = false;
-      keys.s.pressed = false;
-      keys.a.pressed = false;
-      keys.d.pressed = false;
-      caoughtMootamons++;
-      yourTurn = true;
       fightStarted = false;
-      finalMootamonsAreas = [];
-      slicing();
-      objectsCreating();
-      updateMovingObjects();
-      window.addEventListener("keydown", onDownFunction);
-      window.addEventListener("keyup", onUpFunction);
-      inFight = false;
-      window.cancelAnimationFrame(id);
-      updateGame();
+      fightHelper = false;
+      canva.cx.drawImage(won, 0, 0);
+      setTimeout(() => {
+        fightEnded = true;
+      }, 1000)
+      if(fightEnded){
+        fightEnded = false;
+        keys.w.pressed = false;
+        keys.s.pressed = false;
+        keys.a.pressed = false;
+        keys.d.pressed = false;
+        caoughtMootamons++;
+        yourTurn = true;
+        fightStarted = false;
+        finalMootamonsAreas = [];
+        slicing();
+        objectsCreating();
+        updateMovingObjects();
+        window.addEventListener("keydown", onDownFunction);
+        window.addEventListener("keyup", onUpFunction);
+        inFight = false;
+        window.cancelAnimationFrame(id);
+        updateGame();
+      }
     }
     break;
     default: console.log("Fight image does not work :(");
