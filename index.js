@@ -11,6 +11,8 @@ let didUHit = true;
 let animationHelper = false;
 let animIterator = 0;
 let animTalk = false;
+let fightStarted = false;
+let caoughtMootamons = 0;
 
 const spaceEventHandler = e => {
   if(e.key===" "){
@@ -214,6 +216,7 @@ canva.cx.fillRect(0, 0, 720, 480);
 
 function updateGame(){
 let id = window.requestAnimationFrame(updateGame);
+console.log(yoursHealth);
 movable=true;
 if(!inFight){
  canva.clear();
@@ -229,6 +232,10 @@ if(!inFight){
  })
  player.update();
  foreground.updateBackground();
+ canva.cx.beginPath();
+ canva.cx.fillStyle = "black";
+ canva.cx.font = " 25px Agency FB";
+ canva.cx.fillText(`Caught Mootamons: ${caoughtMootamons}/3`, 10, 30);
 
    if(keys.w.pressed && lastKey==='w'){
      player.moving = true;
@@ -255,9 +262,15 @@ if(!inFight){
          movable=false;
          player.moving=false;
          enemysHealth = 100;
-         yoursHealth = 100;
+         if(caoughtMootamons > 0){
+           yoursHealth = 105;
+         } else {
+           yoursHealth = 100;
+         }
          window.removeEventListener("keydown", onDownFunction);
-         window.addEventListener("keydown", spaceEventHandler);
+         setTimeout(() => {
+           window.addEventListener("keydown", spaceEventHandler);
+         }, 1300)
        }
      }
      if(movable){
@@ -292,9 +305,15 @@ if(!inFight){
          movable=false;
          player.moving=false;
          enemysHealth = 100;
-         yoursHealth = 100;
+         if(caoughtMootamons > 0){
+           yoursHealth = 105;
+         } else {
+           yoursHealth = 100;
+         }
          window.removeEventListener("keydown", onDownFunction);
-         window.addEventListener("keydown", spaceEventHandler);
+         setTimeout(() => {
+           window.addEventListener("keydown", spaceEventHandler);
+         }, 1300)
        }
      }
      if(movable){
@@ -329,9 +348,15 @@ if(!inFight){
          movable=false;
          player.moving=false;
          enemysHealth = 100;
-         yoursHealth = 100;
+         if(caoughtMootamons > 0){
+           yoursHealth = 105;
+         } else {
+           yoursHealth = 100;
+         }
          window.removeEventListener("keydown", onDownFunction);
-         window.addEventListener("keydown", spaceEventHandler);
+         setTimeout(() => {
+           window.addEventListener("keydown", spaceEventHandler);
+         }, 1300)
        }
      }
        if(movable){
@@ -366,9 +391,15 @@ if(!inFight){
          movable=false;
          player.moving=false;
          enemysHealth = 100;
-         yoursHealth = 100;
+         if(caoughtMootamons > 0){
+           yoursHealth = 105;
+         } else {
+           yoursHealth = 100;
+         }
          window.removeEventListener("keydown", onDownFunction);
-         window.addEventListener("keydown", spaceEventHandler);
+         setTimeout(() => {
+           window.addEventListener("keydown", spaceEventHandler);
+         }, 1300)
        }
      }
       if(movable){
@@ -410,7 +441,6 @@ if(!inFight){
 }
 else {
 window.removeEventListener("keyup", onUpFunction);
- //setTimeout(() => {
    canva.clear();
    for(let it = 0; it < mootamonsAreas.length; it++){
      if(mootamonsAreas[it] === mootamonNumber){
@@ -419,24 +449,34 @@ window.removeEventListener("keyup", onUpFunction);
    }
    switch(mootamonNumber){
     case 1:
-    canva.cx.drawImage(firstFight, 0, 0, 720, 480);
-    canva.cx.fillStyle = "yellow";
-    canva.cx.font = "25px Arial";
-    canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 470, 380);
-    canva.cx.beginPath();
-    canva.cx.fillStyle = "yellow";
-    canva.cx.font = "25px Arial";
-    canva.cx.fillText(`Tinoroco's healt: ${enemysHealth}%`, 10, 30);
-    canva.cx.beginPath();
-    canva.cx.fillStyle = "black";
-    canva.cx.font = "15px Arial";
-    fightRectangle.fightDraw();
-    canva.cx.fillText("Use space to attack enemy!", 10, 420);
+    if(!fightStarted){
+      canva.cx.drawImage(fightText, 0, 0, 720, 480);
+      setTimeout(() => {
+        fightStarted = true;
+      }, 1000);
+    } else{
+      canva.cx.drawImage(firstFight, 0, 0, 720, 480);
+      canva.cx.fillStyle = "yellow";
+      canva.cx.font = "25px Arial";
+      canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 470, 380);
+      canva.cx.beginPath();
+      canva.cx.fillStyle = "yellow";
+      canva.cx.font = "25px Arial";
+      canva.cx.fillText(`Tinoroco's healt: ${enemysHealth}%`, 10, 30);
+      canva.cx.beginPath();
+      canva.cx.fillStyle = "black";
+      canva.cx.font = "15px Arial";
+      fightRectangle.fightDraw();
+      canva.cx.fillText("Use space to attack enemy!", 10, 420);
+    }
     if(enemysHealth===0){
       keys.w.pressed = false;
       keys.s.pressed = false;
       keys.a.pressed = false;
       keys.d.pressed = false;
+      caoughtMootamons++;
+      yourTurn = true;
+      fightStarted = false;
       finalMootamonsAreas = [];
       slicing();
       objectsCreating();
@@ -449,21 +489,32 @@ window.removeEventListener("keyup", onUpFunction);
     }
     break;
     case 2:
-    canva.cx.drawImage(secondFight, 0, 0, 720, 480);
-    canva.cx.fillStyle = "yellow";
-    canva.cx.font = "25px Arial";
-    canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 450, 380);
-    canva.cx.beginPath();
-    canva.cx.fillStyle = "yellow";
-    canva.cx.font = "25px Arial";
-    canva.cx.fillText(`Feracton's healt: ${enemysHealth}%`, 10, 30);
-    fightRectangle.fightDraw();
-    canva.cx.fillText("Use space to attack enemy!", 10, 420);
+    if(!fightStarted){
+      canva.cx.drawImage(fightText, 0, 0, 720, 480);
+      setTimeout(() => {
+        fightStarted = true;
+      }, 1000);
+    }
+    else {
+      canva.cx.drawImage(secondFight, 0, 0, 720, 480);
+      canva.cx.fillStyle = "yellow";
+      canva.cx.font = "25px Arial";
+      canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 450, 380);
+      canva.cx.beginPath();
+      canva.cx.fillStyle = "yellow";
+      canva.cx.font = "25px Arial";
+      canva.cx.fillText(`Feracton's healt: ${enemysHealth}%`, 10, 30);
+      fightRectangle.fightDraw();
+      canva.cx.fillText("Use space to attack enemy!", 10, 420);
+    }
     if(enemysHealth===0){
       keys.w.pressed = false;
       keys.s.pressed = false;
       keys.a.pressed = false;
       keys.d.pressed = false;
+      caoughtMootamons++;
+      fightStarted = false;
+      yourTurn = true;
       finalMootamonsAreas = [];
       slicing();
       objectsCreating();
@@ -476,21 +527,32 @@ window.removeEventListener("keyup", onUpFunction);
     }
     break;
     case 3:
-    canva.cx.drawImage(thirdFight, 0, 0, 720, 480);
-    canva.cx.fillStyle = "yellow";
-    canva.cx.font = "25px Arial";
-    canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 450, 380);
-    canva.cx.beginPath();
-    canva.cx.fillStyle = "yellow";
-    canva.cx.font = "25px Arial";
-    canva.cx.fillText(`Priglot's healt: ${enemysHealth}%`, 10, 30);
-    fightRectangle.fightDraw();
-    canva.cx.fillText("Use space to attack enemy!", 10, 420);
+    if(!fightStarted){
+      canva.cx.drawImage(fightText, 0, 0, 720, 480);
+      setTimeout(() => {
+        fightStarted = true;
+      }, 1000);
+    }
+    else{
+      canva.cx.drawImage(thirdFight, 0, 0, 720, 480);
+      canva.cx.fillStyle = "yellow";
+      canva.cx.font = "25px Arial";
+      canva.cx.fillText(`Monero's healt: ${yoursHealth}%`, 450, 380);
+      canva.cx.beginPath();
+      canva.cx.fillStyle = "yellow";
+      canva.cx.font = "25px Arial";
+      canva.cx.fillText(`Priglot's healt: ${enemysHealth}%`, 10, 30);
+      fightRectangle.fightDraw();
+      canva.cx.fillText("Use space to attack enemy!", 10, 420);
+    }
     if(enemysHealth===0){
       keys.w.pressed = false;
       keys.s.pressed = false;
       keys.a.pressed = false;
       keys.d.pressed = false;
+      caoughtMootamons++;
+      yourTurn = true;
+      fightStarted = false;
       finalMootamonsAreas = [];
       slicing();
       objectsCreating();
@@ -568,12 +630,25 @@ const listen = () => {
         window.removeEventListener("keydown", spaceEventHandler);
       }
     }
+    if(animIterator == 5){
+      window.removeEventListener("keydown", spaceAnimHandler);
+      window.addEventListener("keydown", spaceEventHandler);
+      animTalk = true;
+      beforeGameConv.draw();
+      if(animationHelper){
+        animationHelper = false;
+        console.log("HELPER WORKS");
+        animIterator++;
+        window.addEventListener("keydown", spaceAnimHandler);
+        window.removeEventListener("keydown", spaceEventHandler);
+      }
+    }
     if(animIterator == images.length - 1){
       animIterator = 0;
       window.cancelAnimationFrame(id);
+      updateGame();
       window.addEventListener("keydown", onDownFunction);
       window.addEventListener("keyup", onUpFunction);
-      updateGame();
     }
   }
 

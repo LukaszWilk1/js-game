@@ -170,21 +170,25 @@ class ConversationFrame{
     canva.cx.strokeRect(0, 400, 720, 80);
     canva.cx.beginPath();
     canva.cx.font = "15px Arial";
-    if(keys.space.pressed && yourTurn && didUHit){
+    if(keys.space.pressed && yourTurn && didUHit && fightStarted){
       window.removeEventListener("keydown", spaceEventHandler);
+      didUHit = false;
       enemysHealth-=40;
+      keys.space.pressed = false;
       setTimeout(() => {
         yourTurn = false;
-      }, 1000);
-      didUHit = false;
-      if(enemysHealth<=0) enemysHealth = 0;
-      keys.space.pressed = false;
+      }, 1300);
+      if(enemysHealth<=0){
+        enemysHealth = 0;
+        keys.space.pressed = false;
+        yourTurn = true;
+      }
     }
     else if(!yourTurn){
-      window.addEventListener("keydown", spaceEventHandler);
         yoursHealth -= 5;
         yourTurn = true;
         didUHit = true;
+        window.addEventListener("keydown", spaceEventHandler);
     }
   }
 }

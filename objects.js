@@ -18,6 +18,7 @@ const secondMoota = new Image();
 const lastMoota = new Image();
 const professorsHouse = new Image();
 const empty = new Image();
+const start = new Image();
 
 let gameState = new State(-3120, -930);
 
@@ -41,6 +42,7 @@ secondMoota.src = "images/secondMoota.png";
 lastMoota.src = "images/lastMoota.png";
 professorsHouse.src = "images/profesorsHouse.png";
 empty.src = "images/empty.png";
+start.src="images/start.png";
 
 const background = new Background(myImage);
 const foreground = new Background(foregroundImg);
@@ -89,6 +91,8 @@ const secondAmimTalk = ["",
 "You: Wait! What is goooo.... AAAAAA..."
 ];
 
+const beforeGameTalk = ["You: What happend? Where am i?", "You: This must be this pocket world this crazy old man was talking about", "You: All right sonner i finish my mission, sooner i will be back", "You: Lets get to work. I should probably look for them in some bushes."]
+
 let firstConv = new ConversationFrame(firstTalk);
 let secondConv = new ConversationFrame(secondTalk);
 let thirdConv = new ConversationFrame(thirdTalk);
@@ -99,7 +103,8 @@ let seventhConv = new ConversationFrame(seventhTalk);
 let eigthtConv = new ConversationFrame(eigthtTalk);
 let firstAnimConv = new ConversationFrame(firtsAnimTalk);
 let secondAnimConv = new ConversationFrame(secondAmimTalk);
+let beforeGameConv = new ConversationFrame(beforeGameTalk);
 
-const images = [beginingText, firstAnim, professorsHouse, prof, empty, empty];
+const images = [beginingText, firstAnim, professorsHouse, prof, empty, start, empty];
 
 let fightRectangle = new ConversationFrame();
