@@ -258,7 +258,6 @@ if(!inFight){
        let mootamons = finalMootamonsAreas[i];
        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
          mootamonNumber = mootamons.number;
-         console.log(mootamonNumber);
          inFight = true;
          fightStarted = false;
          fightEnded = false;
@@ -304,7 +303,6 @@ if(!inFight){
        let mootamons = finalMootamonsAreas[i];
        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
          mootamonNumber = mootamons.number;
-         console.log(mootamonNumber);
          inFight = true;
          fightStarted = false;
          fightEnded = false;
@@ -350,7 +348,6 @@ if(!inFight){
        let mootamons = finalMootamonsAreas[i];
        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
          mootamonNumber = mootamons.number;
-         console.log(mootamonNumber);
          inFight = true;
          fightStarted = false;
          fightEnded = false;
@@ -396,7 +393,6 @@ if(!inFight){
        let mootamons = finalMootamonsAreas[i];
        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
          mootamonNumber = mootamons.number;
-         console.log(mootamonNumber);
          inFight = true;
          fightStarted = false;
          fightEnded = false;
@@ -462,9 +458,7 @@ window.removeEventListener("keyup", onUpFunction);
    }
    switch(mootamonNumber){
      case 1:
-     console.log(fightStarted + ", " + fightEnded + ", " + fightHelper);
      if(!fightStarted && !fightEnded && fightHelper){
-       console.log("I WORK!");
        canva.cx.drawImage(fightText, 0, 0, 720, 480);
        setTimeout(() => {
          fightStarted = true;
@@ -511,9 +505,7 @@ window.removeEventListener("keyup", onUpFunction);
      }
      break;
     case 2:
-    console.log(fightStarted + ", " + fightEnded + ", " + fightHelper);
     if(!fightStarted && !fightEnded && fightHelper){
-      console.log("I WORK!");
       canva.cx.drawImage(fightText, 0, 0, 720, 480);
       setTimeout(() => {
         fightStarted = true;
@@ -560,10 +552,8 @@ window.removeEventListener("keyup", onUpFunction);
     }
     break;
     case 3:
-    console.log(fightStarted + ", " + fightEnded + ", " + fightHelper);
     if(!fightStarted && !fightEnded && fightHelper){
       canva.cx.drawImage(fightText, 0, 0, 720, 480);
-      console.log("I WORK!");
       setTimeout(() => {
         fightStarted = true;
       }, 1000);
@@ -655,7 +645,6 @@ const listen = () => {
       firstAnimConv.draw();
       if(animationHelper){
         animationHelper = false;
-        console.log("HELPER WORKS");
         animIterator++;
         window.addEventListener("keydown", spaceAnimHandler);
         window.removeEventListener("keydown", spaceEventHandler);
@@ -668,7 +657,6 @@ const listen = () => {
       secondAnimConv.draw();
       if(animationHelper){
         animationHelper = false;
-        console.log("HELPER WORKS");
         animIterator++;
         window.addEventListener("keydown", spaceAnimHandler);
         window.removeEventListener("keydown", spaceEventHandler);
@@ -681,7 +669,6 @@ const listen = () => {
       beforeGameConv.draw();
       if(animationHelper){
         animationHelper = false;
-        console.log("HELPER WORKS");
         animIterator++;
         window.addEventListener("keydown", spaceAnimHandler);
         window.removeEventListener("keydown", spaceEventHandler);
