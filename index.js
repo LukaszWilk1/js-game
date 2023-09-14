@@ -238,6 +238,15 @@ if(!inFight){
  canva.cx.font = " 25px Agency FB";
  canva.cx.fillText(`Caught Mootamons: ${caoughtMootamons}/3`, 10, 30);
 
+ if(caoughtMootamons === 3){
+   animIterator = 0;
+   window.removeEventListener("keydown", onDownFunction);
+   window.removeEventListener("keydown", onUpFunction);
+   window.cancelAnimationFrame(id);
+   canva.clear();
+   ending();
+ }
+
    if(keys.w.pressed && lastKey==='w'){
      player.moving = true;
      player.movingDirection = "up";
@@ -617,26 +626,6 @@ window.removeEventListener("keyup", onUpFunction);
 const listen = () => {
   let id = requestAnimationFrame(listen);
   window.addEventListener("keydown", spaceAnimHandler);
-  /*if(keys.space.pressed){
-    //window.cancelAnimationFrame(id);
-    //keys.space.pressed = false;
-    //window.removeEventListener("keydown", spaceEventHandler);
-    canva.clear();
-    canva.cx.drawImage(firstAnim, 0, 0);
-    firstAnimConv.draw();
-    if(animationHelper){
-      animationHelper = false;
-      canva.clear();
-      canva.cx.drawImage(professorsHouse, 0, 0);
-      if(keys.space.pressed){
-        canva.clear();
-        canva.cx.drawImage(prof, 0, 0);
-      }
-    }
-    //window.addEventListener("keydown", onDownFunction);
-    //window.addEventListener("keyup", onUpFunction);
-    //updateGame();
-    */
     canva.cx.drawImage(images[animIterator], 0, 0);
     if(animIterator == 1){
       window.removeEventListener("keydown", spaceAnimHandler);
@@ -678,10 +667,80 @@ const listen = () => {
       animIterator = 0;
       window.cancelAnimationFrame(id);
       updateGame();
-      window.addEventListener("keydown", onDownFunction);
       window.addEventListener("keyup", onUpFunction);
+      window.addEventListener("keydown", onDownFunction);
     }
   }
+
+const ending = () => {
+  let id = window.requestAnimationFrame(ending);
+  window.addEventListener("keydown", spaceAnimHandler);
+  canva.cx.drawImage(endingImages[animIterator], 0, 0);
+  if(animIterator === 0){
+    window.removeEventListener("keydown", spaceAnimHandler);
+    window.addEventListener("keydown", spaceEventHandler);
+    afterGameConv.draw();
+    if(animationHelper){
+      animationHelper = false;
+      animIterator++;
+      window.addEventListener("keydown", spaceAnimHandler);
+      window.removeEventListener("keydown", spaceEventHandler);
+    }
+  }
+  switch(animIterator){
+    case 0:
+    window.removeEventListener("keydown", spaceAnimHandler);
+    window.addEventListener("keydown", spaceEventHandler);
+    afterGameConv.draw();
+    if(animationHelper){
+      animationHelper = false;
+      animIterator++;
+      window.addEventListener("keydown", spaceAnimHandler);
+      window.removeEventListener("keydown", spaceEventHandler);
+    }
+    break;
+    case 1:
+    window.removeEventListener("keydown", spaceAnimHandler);
+    window.addEventListener("keydown", spaceEventHandler);
+    portalConv.draw();
+    if(animationHelper){
+      animationHelper = false;
+      animIterator++;
+      window.addEventListener("keydown", spaceAnimHandler);
+      window.removeEventListener("keydown", spaceEventHandler);
+    }
+    break;
+    case 3:
+    window.removeEventListener("keydown", spaceAnimHandler);
+    window.addEventListener("keydown", spaceEventHandler);
+    lastProfConv.draw();
+    if(animationHelper){
+      animationHelper = false;
+      animIterator++;
+      window.addEventListener("keydown", spaceAnimHandler);
+      window.removeEventListener("keydown", spaceEventHandler);
+    }
+    break;
+    case 5:
+      window.removeEventListener("keydown", spaceAnimHandler);
+      window.addEventListener("keydown", spaceEventHandler);
+      yourLastConv.draw();
+      if(animationHelper){
+        animationHelper = false;
+        animIterator++;
+        window.addEventListener("keydown", spaceAnimHandler);
+        window.removeEventListener("keydown", spaceEventHandler);
+      }
+    break;
+    case 6:
+      window.removeEventListener("keydown", spaceAnimHandler);
+      window.removeEventListener("keydown", spaceEventHandler);
+      window.cancelAnimationFrame(id);
+    break;
+    default: console.log("Error");
+    break;
+  }
+}
 
 
 let lastKey;

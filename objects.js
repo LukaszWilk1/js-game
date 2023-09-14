@@ -18,6 +18,8 @@ const professorsHouse = new Image();
 const empty = new Image();
 const start = new Image();
 const won = new Image();
+const home = new Image();
+const thanks = new Image();
 
 let gameState = new State(-3120, -930);
 
@@ -41,6 +43,8 @@ professorsHouse.src = "images/profesorsHouse.png";
 empty.src = "images/empty.png";
 start.src="images/start.png";
 won.src = "images/won.png";
+home.src = "images/home.png";
+thanks.src="images/thanks.png";
 
 const background = new Background(myImage);
 const foreground = new Background(foregroundImg);
@@ -90,6 +94,10 @@ const secondAmimTalk = ["",
 ];
 
 const beforeGameTalk = ["You: What happend? Where am i?", "You: This must be this pocket world this crazy old man was talking about", "You: All right sonner i finish my mission, sooner i will be back", "You: Lets get to work. I should probably look for them in some bushes."]
+const afterGameTalk = ["You: All right, I caught them all, what now?", "You: Oh no, not this agai... AAAA..."];
+const portal = ["You: I hate portals"];
+const lastProffTalk = ["","Professor: Haha You have made it! I knew i made a goood choice.", "You: Yeah it was crazy adventure but i made it.", "You: Can you please give me back my intenet back now?", "Professor: Yes of course", "Professor: I also improved your resume, it is on your computer already.", "Professor: Good luck with finding job.", "You: Thank you so much.", "You: And what about you?" ," Professor: Now i am going to train mootamons,", "Professor: Then I will send them to pocket world,", "Professor: and then i will send this 9 year old kid Bash that you probably met there", "Professor: to catch them all!", "Professor: Isn't it great idea to send 9 year ol kid for that dangerous mission?", "You: Yeah definitely", "You: Thanks again, good bye."];
+const yourLastTalk = ["You: All right, lets check this new resume.", "You: Wow it is really good. But i hope i am not late", "You: Great! This position is still open!", "You: All right resume has been sent, now i must wait.", "You: This was really crazy adventure. I hope They will like it."]
 
 let firstConv = new ConversationFrame(firstTalk);
 let secondConv = new ConversationFrame(secondTalk);
@@ -102,7 +110,12 @@ let eigthtConv = new ConversationFrame(eigthtTalk);
 let firstAnimConv = new ConversationFrame(firtsAnimTalk);
 let secondAnimConv = new ConversationFrame(secondAmimTalk);
 let beforeGameConv = new ConversationFrame(beforeGameTalk);
+let afterGameConv = new ConversationFrame(afterGameTalk);
+let portalConv = new ConversationFrame(portal);
+let lastProfConv = new ConversationFrame(lastProffTalk);
+let yourLastConv = new ConversationFrame(yourLastTalk);
 
 const images = [beginingText, firstAnim, professorsHouse, prof, empty, start, empty];
+const endingImages = [start, empty, professorsHouse, prof, home, firstAnim, thanks];
 
 let fightRectangle = new ConversationFrame();
