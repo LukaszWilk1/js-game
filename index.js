@@ -149,7 +149,7 @@ let finalMootamonsAreas = [];
 const objectsCreating = () => {
 newBoundries.forEach((row, i) => {
   row.forEach((number, j) => {
-    if(number === 524){
+    if(number === 515){
         boundaries.push(new Obstacles(j*64 + background.x, i*64 + background.y, 64, 64, "rgba(255, 255, 255, 0)"))
     }
   })
@@ -185,36 +185,6 @@ updateMovingObjects();
 let talking = false;
 let movable = false;
 let inFight = false;
-let i = 1;
-let j = 0;
-
-function fadingOut(){
-canva.cx.fillStyle=`rgba(0, 0, 0, ${i})`;
-canva.cx.fillRect(0, 0, 720, 480);
-  setInterval(() => {
-    if(i>=0){
-      canva.cx.clearRect(0, 0, 720, 480);
-      canva.cx.fillStyle=`rgba(0, 0, 0, ${i})`;
-      canva.cx.fillRect(0, 0, 720, 480);
-      i-=0.1;
-    }
-  }, 50);
-  i=1;
-}
-
-function fadingIn(){
-canva.cx.fillStyle=`rgba(0, 0, 0, ${j})`;
-canva.cx.fillRect(0, 0, 720, 480);
-  setInterval(() => {
-    if(j<=1){
-      canva.cx.clearRect(0, 0, 720, 480);
-      canva.cx.fillStyle=`rgba(0, 0, 0, ${j})`;
-      canva.cx.fillRect(0, 0, 720, 480);
-      j+=0.1;
-    }
-  }, 50);
-  j=0;
-}
 
 function updateGame(){
 let id = window.requestAnimationFrame(updateGame);
@@ -609,17 +579,6 @@ window.removeEventListener("keyup", onUpFunction);
     break;
     default: console.log("Fight image does not work :(");
    }
-   /*
-   setTimeout(() => {
-     finalMootamonsAreas = [];
-     slicing();
-     objectsCreating();
-     updateMovingObjects();
-     window.addEventListener("keydown", onDownFunction);
-     updateGame();
-   }, 1000);
-   */
- //}, 1000);
 }
 }
 
@@ -737,8 +696,6 @@ const ending = () => {
       window.removeEventListener("keydown", spaceEventHandler);
       window.cancelAnimationFrame(id);
     break;
-    default: console.log("Error");
-    break;
   }
 }
 
@@ -747,8 +704,13 @@ let lastKey;
 window.addEventListener("load", e => {
 if(window.innerWidth >= 1024){
     const button = document.createElement("button");
+    const audio = document.createElement("audio");
+    const source = document.createElement("source");
     button.innerHTML = "START GAME";
     button.onclick = function(){
+      source.src = "music/mainMusic.mp3";
+      audio.loop = "true";
+      document.getElementById("main").appendChild(audio);
       button.remove();
       canva.create();
       canva.cx.drawImage(beginingText, 0, 0);
