@@ -119,3 +119,7 @@ const images = [beginingText, firstAnim, professorsHouse, prof, empty, start, em
 const endingImages = [start, empty, professorsHouse, prof, home, firstAnim, thanks];
 
 let fightRectangle = new ConversationFrame();
+
+const audio = new Audio("music/mainMusic.mp3");
+audio.autoplay = true;
+audio.loop = "true";

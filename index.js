@@ -204,6 +204,9 @@ if(!inFight){
  player.update();
  foreground.updateBackground();
  canva.cx.beginPath();
+ canva.cx.fillStyle = "white";
+ canva.cx.fillRect(0, 0, 215, 45);
+ canva.cx.beginPath();
  canva.cx.fillStyle = "black";
  canva.cx.font = " 25px Agency FB";
  canva.cx.fillText(`Caught Mootamons: ${caoughtMootamons}/3`, 10, 30);
@@ -704,13 +707,12 @@ let lastKey;
 window.addEventListener("load", e => {
 if(window.innerWidth >= 1024){
     const button = document.createElement("button");
-    const audio = document.createElement("audio");
-    const source = document.createElement("source");
+    const audio = new Audio("music/mainMusic.mp3");
+    audio.autoplay = true;
+    audio.loop = "true";
     button.innerHTML = "START GAME";
     button.onclick = function(){
-      source.src = "music/mainMusic.mp3";
-      audio.loop = "true";
-      document.getElementById("main").appendChild(audio);
+      audio.play();
       button.remove();
       canva.create();
       canva.cx.drawImage(beginingText, 0, 0);
