@@ -1,5 +1,6 @@
 body{
-  background-color: #666666;
+  background: rgb(186,27,27);
+background: linear-gradient(90deg, rgba(186,27,27,1) 0%, rgba(43,227,14,1) 58%, rgba(0,212,255,1) 100%);
 }
 
 header{
@@ -17,23 +18,24 @@ main{
 }
 
 button{
-  background-color: #1a1a1a;
-  width: 120px;
-  height: 70px;
-  border: 4px solid orange;
-  border-radius: 15px;
-  color: orange;
+  background-color: red;
+  width: 240px;
+  height: 140px;
+  color: yellow;
+  font-size: 40px;
 }
 
 button:hover{
   cursor: pointer;
-  background-color: #404040;
+  background-color: orange;
+  color: green;
 }
 
 canvas{
   width: 700px;
   height: 450px;
   background: black;
+  border: 10px solid yellow;
 }
 
 h2{

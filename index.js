@@ -720,7 +720,7 @@ let lastKey;
 window.addEventListener("load", e => {
 if(window.innerWidth >= 1024){
     const button = document.createElement("button");
-    button.innerHTML = "START GAME";
+    button.innerHTML = "START GAME!";
     button.onclick = function(){
       audio.play();
       button.remove();
