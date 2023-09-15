@@ -123,3 +123,6 @@ let fightRectangle = new ConversationFrame();
 const audio = new Audio("music/mainMusic.mp3");
 audio.autoplay = true;
 audio.loop = "true";
+
+const battleAudio = new Audio("music/fightMusic.mp3");
+battleAudio.loop = "true";

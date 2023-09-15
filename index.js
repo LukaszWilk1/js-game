@@ -253,6 +253,7 @@ if(!inFight){
            yoursHealth = 100;
          }
          window.removeEventListener("keydown", onDownFunction);
+         audio.src = "music/fightMusic.mp3";
          setTimeout(() => {
            window.addEventListener("keydown", spaceEventHandler);
          }, 1300)
@@ -298,6 +299,7 @@ if(!inFight){
            yoursHealth = 100;
          }
          window.removeEventListener("keydown", onDownFunction);
+         audio.src = "music/fightMusic.mp3";
          setTimeout(() => {
            window.addEventListener("keydown", spaceEventHandler);
          }, 1300)
@@ -343,6 +345,7 @@ if(!inFight){
            yoursHealth = 100;
          }
          window.removeEventListener("keydown", onDownFunction);
+         audio.src = "music/fightMusic.mp3";
          setTimeout(() => {
            window.addEventListener("keydown", spaceEventHandler);
          }, 1300)
@@ -388,6 +391,7 @@ if(!inFight){
            yoursHealth = 100;
          }
          window.removeEventListener("keydown", onDownFunction);
+         audio.src = "music/fightMusic.mp3";
          setTimeout(() => {
            window.addEventListener("keydown", spaceEventHandler);
          }, 1300)
@@ -459,6 +463,8 @@ window.removeEventListener("keyup", onUpFunction);
        canva.cx.fillText("Use space to attack enemy!", 10, 420);
      }
      if(enemysHealth===0){
+       battleAudio.pause();
+       audio.play();
        fightStarted = false;
        fightHelper = false;
        canva.cx.drawImage(won, 0, 0);
@@ -481,6 +487,7 @@ window.removeEventListener("keyup", onUpFunction);
          window.addEventListener("keydown", onDownFunction);
          window.addEventListener("keyup", onUpFunction);
          inFight = false;
+         audio.src = "music/mainMusic.mp3";
          window.cancelAnimationFrame(id);
          updateGame();
        }
@@ -506,6 +513,8 @@ window.removeEventListener("keyup", onUpFunction);
       canva.cx.fillText("Use space to attack enemy!", 10, 420);
     }
     if(enemysHealth===0){
+      battleAudio.pause();
+      audio.play();
       fightStarted = false;
       fightHelper = false;
       canva.cx.drawImage(won, 0, 0);
@@ -528,6 +537,7 @@ window.removeEventListener("keyup", onUpFunction);
         window.addEventListener("keydown", onDownFunction);
         window.addEventListener("keyup", onUpFunction);
         inFight = false;
+        audio.src = "music/mainMusic.mp3";
         window.cancelAnimationFrame(id);
         updateGame();
       }
@@ -553,6 +563,8 @@ window.removeEventListener("keyup", onUpFunction);
       canva.cx.fillText("Use space to attack enemy!", 10, 420);
     }
     if(enemysHealth===0){
+      battleAudio.pause();
+      audio.play();
       fightStarted = false;
       fightHelper = false;
       canva.cx.drawImage(won, 0, 0);
@@ -575,6 +587,7 @@ window.removeEventListener("keyup", onUpFunction);
         window.addEventListener("keydown", onDownFunction);
         window.addEventListener("keyup", onUpFunction);
         inFight = false;
+        audio.src = "music/mainMusic.mp3";
         window.cancelAnimationFrame(id);
         updateGame();
       }
@@ -707,9 +720,6 @@ let lastKey;
 window.addEventListener("load", e => {
 if(window.innerWidth >= 1024){
     const button = document.createElement("button");
-    const audio = new Audio("music/mainMusic.mp3");
-    audio.autoplay = true;
-    audio.loop = "true";
     button.innerHTML = "START GAME";
     button.onclick = function(){
       audio.play();
