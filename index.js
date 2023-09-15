@@ -711,6 +711,11 @@ const ending = () => {
       window.removeEventListener("keydown", spaceAnimHandler);
       window.removeEventListener("keydown", spaceEventHandler);
       window.cancelAnimationFrame(id);
+      const download = document.createElement("a");
+      download.href = "data:images/won.png";
+      download.download = "won.png";
+      document.getElementById("main").appendChild(download);
+      download.click();
     break;
   }
 }
