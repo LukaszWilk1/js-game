@@ -15,6 +15,7 @@ let fightStarted = false;
 let fightEnded = false;
 let caoughtMootamons = 0;
 let fightHelper = true;
+let talkingHelper = [false, false, false, false, false, false, false, false,];
 
 const spaceEventHandler = e => {
   if(e.key===" "){
@@ -188,7 +189,9 @@ let inFight = false;
 
 function updateGame(){
 let id = window.requestAnimationFrame(updateGame);
+console.log(talking);
 movable=true;
+talking = false;
 if(!inFight){
  canva.clear();
  background.updateBackground();
@@ -220,6 +223,22 @@ if(!inFight){
    ending();
  }
 
+ for(let i=0;i<finalCharactersAreas.length;i++){
+   let characters = finalCharactersAreas[i];
+   if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x+2.5, y: characters.y+2.5}})){
+     talking = true;
+     characterNumber = characters.number;
+   }
+ }
+
+ for(let i=0;i<finalCharactersAreas.length;i++){
+   let characters = finalCharactersAreas[i];
+   if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x-2.5, y: characters.y-2.5}})){
+     talking = true;
+     characterNumber = characters.number;
+   }
+ }
+
    if(keys.w.pressed && lastKey==='w'){
      player.moving = true;
      player.movingDirection = "up";
@@ -229,13 +248,13 @@ if(!inFight){
          movable=false;
        }
      }
-     for(let i=0;i<finalCharactersAreas.length;i++){
+     /*for(let i=0;i<finalCharactersAreas.length;i++){
        let characters = finalCharactersAreas[i];
        if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
          talking = true;
          characterNumber = characters.number;
        }
-     }
+     }*/
      for(let i=0;i<finalMootamonsAreas.length;i++){
        let mootamons = finalMootamonsAreas[i];
        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
@@ -275,13 +294,13 @@ if(!inFight){
          movable=false;
        }
      }
-     for(let i=0;i<finalCharactersAreas.length;i++){
+     /*for(let i=0;i<finalCharactersAreas.length;i++){
        let characters = finalCharactersAreas[i];
        if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
          talking = true;
          characterNumber = characters.number;
        }
-     }
+     }*/
      for(let i=0;i<finalMootamonsAreas.length;i++){
        let mootamons = finalMootamonsAreas[i];
        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
@@ -321,13 +340,13 @@ if(!inFight){
          movable=false;
        }
      }
-     for(let i=0;i<finalCharactersAreas.length;i++){
+     /*for(let i=0;i<finalCharactersAreas.length;i++){
        let characters = finalCharactersAreas[i];
        if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
          talking = true;
          characterNumber = characters.number;
        }
-     }
+     }*/
      for(let i=0;i<finalMootamonsAreas.length;i++){
        let mootamons = finalMootamonsAreas[i];
        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
@@ -367,13 +386,13 @@ if(!inFight){
          movable=false;
        }
      }
-     for(let i=0;i<finalCharactersAreas.length;i++){
+     /*for(let i=0;i<finalCharactersAreas.length;i++){
        let characters = finalCharactersAreas[i];
        if(collisions({oPlayer: player, otherObj:{...characters, x: characters.x, y: characters.y+2.5}})){
          talking = true;
          characterNumber = characters.number;
        }
-     }
+     }*/
      for(let i=0;i<finalMootamonsAreas.length;i++){
        let mootamons = finalMootamonsAreas[i];
        if(collisions({oPlayer: player, otherObj:{...mootamons, x: mootamons.x, y: mootamons.y+2.5}})){
@@ -407,28 +426,44 @@ if(!inFight){
    if(keys.enter.pressed && talking){
      switch(characterNumber){
        case 1:
-       firstConv.draw();
+       if(!talkingHelper[characterNumber-1]){
+        firstConv.draw();
+       }
        break;
        case 2:
-       secondConv.draw();
+       if(!talkingHelper[characterNumber-1]){
+         secondConv.draw();
+       }
        break;
        case 3:
-       thirdConv.draw();
+       if(!talkingHelper[characterNumber-1]){
+         thirdConv.draw();
+       }
        break;
        case 4:
-       fourthConv.draw();
+       if(!talkingHelper[characterNumber-1]){
+         fourthConv.draw();
+       }
        break;
        case 5:
-       fifthConv.draw();
+       if(!talkingHelper[characterNumber-1]){
+         fifthConv.draw();
+       }
        break;
        case 6:
-       sixthConv.draw();
+       if(!talkingHelper[characterNumber-1]){
+         sixthConv.draw();
+       }
        break;
        case 7:
-       seventhConv.draw();
+       if(!talkingHelper[characterNumber-1]){
+         seventhConv.draw();
+       }
        break;
        case 8:
-       eigthtConv.draw();
+       if(!talkingHelper[characterNumber-1]){
+         eigthtConv.draw();
+       }
        break;
        default: console.log("CONVO NOT READY YET!");
      }
