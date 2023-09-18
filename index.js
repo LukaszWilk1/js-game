@@ -218,6 +218,7 @@ if(!inFight){
    window.removeEventListener("keydown", onDownFunction);
    window.removeEventListener("keyup", onUpFunction);
    window.removeEventListener("keydown", spaceEventHandler);
+   window.removeEventListener("keydown", spaceAnimHandler);
    window.cancelAnimationFrame(id);
    canva.clear();
    ending();
