@@ -210,7 +210,7 @@ if(!inFight){
  canva.cx.fillRect(0, 0, 215, 45);
  canva.cx.beginPath();
  canva.cx.fillStyle = "black";
- canva.cx.font = " 25px Agency FB";
+ canva.cx.font = " 25px myFont";
  canva.cx.fillText(`Caught Mootamons: ${caoughtMootamons}/3`, 10, 30);
 
  if(caoughtMootamons === 3){
@@ -742,6 +742,6 @@ if(window.innerWidth >= 1024){
     document.getElementById("main").appendChild(button);
 }
 else{
-  document.getElementById("main").innerHTML = "<h2>SORYY, BUT YOUR SCREEN IS TO SMALL TO PLAY MOOTAMONS :(</h2>";
+  document.getElementById("main").innerHTML = "<h2>SORYY, BUT YOUR SCREEN IS TOo SMALL TO PLAY MOOTAMONS :(</h2>";
 }
 })

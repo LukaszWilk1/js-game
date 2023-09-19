@@ -188,7 +188,7 @@ class ConversationFrame{
         yoursHealth -= 5;
         yourTurn = true;
         didUHit = true;
-        window.addEventListener("keydown", spaceEventHandler);
+        if(caoughtMootamons !== 3) window.addEventListener("keydown", spaceEventHandler);
     }
   }
 }
